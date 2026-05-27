@@ -185,6 +185,11 @@
       inherits: false;
       initial-value: 0.78;
     }
+    @property --pos {
+      syntax: '<percentage>';
+      inherits: false;
+      initial-value: 50%;
+    }
 
     /* ----------------------------------------------------------
        :: Nav
@@ -1484,160 +1489,291 @@
       font-size: 1.06em;
     }
 
-    /* Grid assimétrico — 12 colunas, 3 linhas */
-    .gallery__grid {
-      display: grid;
-      grid-template-columns: repeat(12, 1fr);
-      grid-template-rows: 1fr 1fr auto;
-      gap: clamp(0.75rem, 1.2vw, 1.2rem);
-      min-height: clamp(580px, 72vw, 920px);
-    }
-
-    .gallery__cell {
-      position: relative;
-      overflow: hidden;
-      background: var(--color-bg-warm);
-      border: 1px solid rgba(197, 160, 89, 0.22);
-      isolation: isolate;
-    }
-
-    .gallery__cell--feature {
-      grid-column: 1 / 8;
-      grid-row: 1 / 3;
-    }
-    .gallery__cell--statement {
-      grid-column: 8 / 13;
-      grid-row: 1 / 2;
+    /* Transformações antes/depois — cada par com slider interativo */
+    .gallery__transformations {
       display: flex;
       flex-direction: column;
-      justify-content: center;
-      padding: clamp(2rem, 3.2vw, 3.5rem);
+      gap: clamp(3rem, 7vw, 7rem);
+    }
+    .transformation {
+      display: grid;
+      grid-template-columns: 7fr 5fr;
+      gap: clamp(2rem, 5vw, 5rem);
+      align-items: center;
+    }
+    .transformation--02 {
+      grid-template-columns: 5fr 7fr;
+    }
+
+    /* Info lateral */
+    .transformation__info {
+      display: flex;
+      flex-direction: column;
+      gap: 1.3rem;
+      max-width: 42ch;
+    }
+    .transformation__num-row {
+      display: flex;
+      align-items: center;
+      gap: 1.1rem;
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.32em;
+      color: var(--color-text-soft);
+    }
+    .transformation__num {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 1.1rem;
+      letter-spacing: 0.04em;
+      color: var(--color-gold);
+      text-transform: none;
+    }
+    .transformation__line {
+      display: inline-block;
+      width: clamp(36px, 5vw, 64px);
+      height: 1px;
+      background: var(--color-gold);
+      transform-origin: left center;
+      transform: scaleX(0);
+    }
+    .transformation__line.is-drawn {
+      transform: scaleX(1);
+      transition: transform 1.4s var(--ease-silk);
+    }
+
+    .transformation__title {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: clamp(1.9rem, 3.4vw, 3rem);
+      line-height: 1.05;
+      letter-spacing: -0.012em;
+      color: var(--color-text);
+    }
+    .transformation__title em {
+      font-style: italic;
+      font-weight: 500;
+      color: var(--color-gold);
+    }
+
+    .transformation__quote {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: clamp(1.15rem, 1.55vw, 1.45rem);
+      line-height: 1.4;
+      color: var(--color-text);
+      padding-left: 1.4rem;
+      border-left: 1px solid var(--color-gold);
+      margin: 0.3rem 0;
+    }
+    .transformation__quote em {
+      color: var(--color-gold);
+      font-style: italic;
+    }
+
+    .transformation__desc {
+      font-size: clamp(0.94rem, 1vw, 1rem);
+      line-height: 1.7;
+      color: var(--color-text-soft);
+    }
+    .transformation__desc em {
+      font-family: var(--font-serif);
+      font-style: italic;
+      color: var(--color-text);
+    }
+
+    .transformation__meta {
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.9rem;
+      font-size: 0.7rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--color-text-mute);
+      padding-top: 1.1rem;
+      margin-top: 0.4rem;
+      border-top: 1px solid rgba(43, 36, 30, 0.08);
+    }
+    .transformation__meta .dot {
+      width: 5px;
+      height: 5px;
+      background: var(--color-gold);
+      border-radius: 50%;
+    }
+
+    /* -----  Compare slider (Antes/Depois drag)  ----- */
+    .compare {
+      --pos: 100%;
+      position: relative;
+      width: 100%;
+      aspect-ratio: 4 / 5;
+      overflow: hidden;
+      user-select: none;
+      cursor: ew-resize;
+      border: 1px solid rgba(197, 160, 89, 0.28);
+      background: var(--color-bg-warm);
+      box-shadow:
+        0 60px 100px -60px rgba(43, 36, 30, 0.28),
+        0 0 0 1px rgba(197, 160, 89, 0.08);
+      touch-action: pan-y;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .compare img {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center;
+      pointer-events: none;
+      --blur: 18px;
+      --sat:  0.78;
+      filter: blur(var(--blur)) saturate(var(--sat));
+      will-change: filter, clip-path;
+      transform: scale(1.04);
+    }
+    .compare__before {
+      z-index: 2;
+      clip-path: inset(0 calc(100% - var(--pos)) 0 0);
+    }
+    .compare__after {
+      z-index: 1;
+    }
+
+    /* Vinheta sutil */
+    .compare::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
       background:
-        radial-gradient(120% 80% at 100% 0%, rgba(230, 207, 160, 0.16), transparent 60%),
-        var(--color-bg-warm);
+        radial-gradient(140% 90% at 50% 50%, transparent 60%, rgba(43, 36, 30, 0.2) 100%);
+      mix-blend-mode: multiply;
+      z-index: 3;
     }
-    .gallery__cell--portrait {
-      grid-column: 8 / 13;
-      grid-row: 2 / 3;
+
+    /* Divisor vertical com glow dourado */
+    .compare__divider {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      left: var(--pos);
+      width: 1px;
+      background: var(--color-gold);
+      transform: translateX(-50%);
+      pointer-events: none;
+      box-shadow: 0 0 14px rgba(197, 160, 89, 0.55);
+      z-index: 4;
     }
-    .gallery__cell--stats {
-      grid-column: 1 / 13;
-      grid-row: 3 / 4;
+
+    /* Handle de arraste */
+    .compare__handle {
+      position: absolute;
+      top: 50%;
+      left: var(--pos);
+      transform: translate(-50%, -50%);
+      width: 54px;
+      height: 54px;
+      border-radius: 50%;
+      background: rgba(250, 249, 246, 0.95);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid var(--color-gold);
+      pointer-events: none;
+      box-shadow: 0 16px 32px -10px rgba(43, 36, 30, 0.35);
+      z-index: 5;
+      transition: transform 0.5s var(--ease-silk), background 0.4s var(--ease-silk);
+    }
+    .compare:hover .compare__handle,
+    .compare.is-dragging .compare__handle {
+      transform: translate(-50%, -50%) scale(1.08);
+      background: rgba(250, 249, 246, 1);
+    }
+    .compare__handle::before,
+    .compare__handle::after {
+      content: "";
+      position: absolute;
+      top: 50%;
+      width: 8px;
+      height: 8px;
+      border-top: 1px solid var(--color-gold);
+      border-left: 1px solid var(--color-gold);
+      margin-top: -4px;
+    }
+    .compare__handle::before { left: 11px; transform: rotate(-45deg); }
+    .compare__handle::after  { right: 11px; transform: rotate(135deg); }
+
+    /* Labels Antes/Depois */
+    .compare__label {
+      position: absolute;
+      bottom: clamp(0.9rem, 1.6vw, 1.3rem);
+      font-size: 0.62rem;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--color-bg-warm);
+      padding: 0.5rem 0.95rem;
+      background: rgba(43, 36, 30, 0.58);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(197, 160, 89, 0.55);
+      border-radius: 999px;
+      pointer-events: none;
+      z-index: 6;
+      transition: opacity 0.5s var(--ease-silk);
+    }
+    .compare__label--before {
+      left: clamp(0.9rem, 1.6vw, 1.3rem);
+      opacity: calc((var(--pos) - 10%) / 30%);
+    }
+    .compare__label--after  {
+      right: clamp(0.9rem, 1.6vw, 1.3rem);
+      opacity: calc((100% - var(--pos) - 10%) / 30%);
+    }
+
+    /* Hint inicial — pisca sutilmente até o primeiro arraste */
+    .compare__hint {
+      position: absolute;
+      top: clamp(0.9rem, 1.6vw, 1.3rem);
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.6rem;
+      letter-spacing: 0.32em;
+      text-transform: uppercase;
+      color: var(--color-bg-warm);
+      padding: 0.45rem 0.9rem;
+      background: rgba(43, 36, 30, 0.5);
+      backdrop-filter: blur(8px);
+      border: 1px solid rgba(197, 160, 89, 0.4);
+      border-radius: 999px;
+      pointer-events: none;
+      z-index: 6;
+      animation: hintPulse 3.6s ease-in-out infinite;
+    }
+    .compare.is-touched .compare__hint {
+      opacity: 0;
+      transition: opacity 0.6s var(--ease-silk);
+    }
+    @keyframes hintPulse {
+      0%, 100% { opacity: 0.7; }
+      50%      { opacity: 1; }
+    }
+
+    /* -----  Gallery stats  ----- */
+    .gallery__stats {
+      margin-top: clamp(4rem, 8vw, 7rem);
+      padding: clamp(1.8rem, 3vw, 3rem) clamp(1.5rem, 3vw, 3rem);
       display: grid;
       grid-template-columns: repeat(3, 1fr);
       align-items: center;
-      padding: clamp(1.8rem, 3vw, 3rem) clamp(1.5rem, 3vw, 3rem);
+      border: 1px solid rgba(197, 160, 89, 0.22);
       background:
         linear-gradient(105deg,
           var(--color-bg-warm) 0%,
           var(--color-bg) 60%,
           rgba(230, 207, 160, 0.08) 100%);
     }
-
-    /* Wrapper de imagem com soft-focus inicial */
-    .gallery__img-wrap {
-      position: relative;
-      width: 100%;
-      height: 100%;
-      overflow: hidden;
-    }
-    .gallery__img-wrap img {
-      --blur: 18px;
-      --sat:  0.78;
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
-      object-position: center 28%;
-      filter: blur(var(--blur)) saturate(var(--sat));
-      transform: scale(1.06);
-      will-change: filter;
-      transition: transform 1.4s var(--ease-silk);
-    }
-    .gallery__cell--feature .gallery__img-wrap img { object-position: center 22%; }
-    .gallery__cell--portrait .gallery__img-wrap img { object-position: center 30%; }
-
-    /* Vinheta + máscara de leitura para o caption */
-    .gallery__img-wrap::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      pointer-events: none;
-      background:
-        radial-gradient(140% 90% at 50% 50%, transparent 55%, rgba(43, 36, 30, 0.22) 100%),
-        linear-gradient(180deg, transparent 55%, rgba(43, 36, 30, 0.55) 100%);
-      mix-blend-mode: multiply;
-    }
-
-    /* Caption sobre a imagem */
-    .gallery__cap {
-      position: absolute;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      padding: clamp(1rem, 1.5vw, 1.4rem) clamp(1.2rem, 2vw, 1.8rem);
-      display: flex;
-      align-items: baseline;
-      justify-content: space-between;
-      gap: 1rem;
-      color: var(--color-bg-warm);
-      z-index: 2;
-    }
-    .gallery__cap-num {
-      font-family: var(--font-serif);
-      font-style: italic;
-      font-size: 1.25rem;
-      color: var(--color-gold-light);
-      letter-spacing: 0.02em;
-      line-height: 1;
-    }
-    .gallery__cap-tag {
-      font-size: 0.66rem;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      color: rgba(250, 249, 246, 0.92);
-    }
-    .gallery__cap-tag::before {
-      content: "";
-      display: inline-block;
-      width: 16px;
-      height: 1px;
-      background: var(--color-gold-light);
-      vertical-align: middle;
-      margin-right: 0.7em;
-    }
-
-    /* Pull quote — cartão statement */
-    .gallery__quote-mark {
-      font-family: var(--font-serif);
-      font-style: italic;
-      font-size: clamp(4rem, 6vw, 6rem);
-      line-height: 0.5;
-      color: var(--color-gold);
-      margin-bottom: 1.2rem;
-      user-select: none;
-    }
-    .gallery__cell--statement p {
-      font-family: var(--font-serif);
-      font-weight: 400;
-      font-style: italic;
-      font-size: clamp(1.45rem, 2.1vw, 2rem);
-      line-height: 1.3;
-      color: var(--color-text);
-      letter-spacing: -0.005em;
-      margin-bottom: 1.4rem;
-    }
-    .gallery__cell--statement p em {
-      color: var(--color-gold);
-      font-weight: 500;
-    }
-    .gallery__quote-cite {
-      font-size: 0.7rem;
-      letter-spacing: 0.28em;
-      text-transform: uppercase;
-      color: var(--color-text-mute);
-    }
-
-    /* Stats strip */
     .gallery__stat {
       display: flex;
       align-items: baseline;
@@ -1669,23 +1805,28 @@
     @media (max-width: 1024px) {
       .gallery__head { grid-template-columns: 1fr; gap: 1.5rem; align-items: start; }
       .gallery__intro { justify-self: start; }
-      .gallery__grid {
-        grid-template-columns: repeat(6, 1fr);
-        grid-template-rows: auto auto auto auto;
-        min-height: auto;
+      .transformation {
+        grid-template-columns: 1fr;
+        gap: 2rem;
       }
-      .gallery__cell--feature  { grid-column: 1 / 7; grid-row: 1; aspect-ratio: 4 / 5; }
-      .gallery__cell--statement { grid-column: 1 / 7; grid-row: 2; }
-      .gallery__cell--portrait { grid-column: 1 / 7; grid-row: 3; aspect-ratio: 5 / 4; }
-      .gallery__cell--stats    { grid-column: 1 / 7; grid-row: 4; }
+      .transformation--02 {
+        grid-template-columns: 1fr;
+      }
+      .transformation--02 .transformation__info { order: -1; }
     }
     @media (max-width: 720px) {
       .gallery { padding: clamp(4rem, 10vw, 5.5rem) var(--gutter) clamp(3.5rem, 8vw, 5rem); }
       .gallery__title { font-size: clamp(2rem, 9.5vw, 3.4rem); }
       .gallery__chapter-line { width: 32px; }
-      .gallery__cell--statement { padding: 2rem 1.5rem; }
-      .gallery__cell--statement p { font-size: 1.3rem; }
-      .gallery__cell--stats {
+      .gallery__transformations { gap: 3.5rem; }
+      .transformation__title { font-size: clamp(1.6rem, 7vw, 2rem); }
+      .transformation__quote { font-size: 1.1rem; padding-left: 1rem; }
+      .compare__handle { width: 46px; height: 46px; }
+      .compare__handle::before { left: 9px; }
+      .compare__handle::after  { right: 9px; }
+      .compare__label { font-size: 0.58rem; letter-spacing: 0.24em; padding: 0.4rem 0.75rem; }
+      .compare__hint  { font-size: 0.56rem; letter-spacing: 0.22em; padding: 0.35rem 0.7rem; }
+      .gallery__stats {
         grid-template-columns: 1fr;
         gap: 1rem;
         padding: 1.6rem 1.4rem;
@@ -1700,7 +1841,7 @@
       .gallery__stat strong { font-size: clamp(2.4rem, 12vw, 3.4rem); }
     }
     @media (max-width: 380px) {
-      .gallery__cell--feature  { aspect-ratio: 3 / 4; }
+      .compare { aspect-ratio: 3 / 4; }
     }
 
     /* ----------------------------------------------------------
@@ -2237,63 +2378,101 @@
           </h2>
         </div>
         <p class="gallery__intro">
-          Pele renovada, luz reconquistada. Cada protocolo conta uma história silenciosa de <em>cuidado</em> — abaixo, alguns fragmentos do atelier.
+          Cada transformação é fruto de protocolo <em>desenhado em camadas</em>. Arraste o divisor dourado para acompanhar a jornada da pele — do diagnóstico ao resultado.
         </p>
       </header>
 
-      <div class="gallery__grid">
+      <div class="gallery__transformations">
 
-        <figure class="gallery__cell gallery__cell--feature">
-          <div class="gallery__img-wrap">
-            <img
-              src="assets/lais-nayelli-portrait-01.jpg"
-              alt="Laís Nayélli em seu atelier de cosmetologia"
-              loading="lazy"
-              decoding="async"
-            />
+        <!-- Transformação 01 — Hipercromias -->
+        <article class="transformation transformation--01" aria-labelledby="trans-01">
+          <div class="compare" data-compare role="img" aria-label="Comparativo antes e depois do tratamento de hipercromias">
+            <img class="compare__after"  src="assets/resultado-01-depois.png" alt="Pele uniforme após tratamento de hipercromias" loading="lazy" decoding="async" />
+            <img class="compare__before" src="assets/resultado-01-antes.png"  alt="Pele com hipercromias antes do tratamento" loading="lazy" decoding="async" />
+            <div class="compare__divider" aria-hidden="true"></div>
+            <div class="compare__handle"  aria-hidden="true"></div>
+            <span class="compare__label compare__label--before">Antes</span>
+            <span class="compare__label compare__label--after">Depois</span>
+            <span class="compare__hint" aria-hidden="true">arraste</span>
           </div>
-          <figcaption class="gallery__cap">
-            <span class="gallery__cap-num">01</span>
-            <span class="gallery__cap-tag">No Atelier · 2024</span>
-          </figcaption>
-        </figure>
 
-        <div class="gallery__cell gallery__cell--statement">
-          <span class="gallery__quote-mark" aria-hidden="true">“</span>
-          <p>A pele recupera, antes de tudo, sua <em>confiança</em>.</p>
-          <span class="gallery__quote-cite">— Filosofia do Atelier</span>
+          <div class="transformation__info">
+            <span class="transformation__num-row">
+              <span class="transformation__num">01</span>
+              <span class="transformation__line" aria-hidden="true"></span>
+              <span>Caso de Estudo</span>
+            </span>
+            <h3 class="transformation__title" id="trans-01">
+              Tratamento de <em>Hipercromias</em>
+            </h3>
+            <p class="transformation__quote">
+              Pele uniforme, <em>luz</em> reconquistada.
+            </p>
+            <p class="transformation__desc">
+              Protocolo despigmentante <em>personalizado</em> com ativos clareadores de última geração. Resultados visíveis a partir da terceira sessão, com tom de pele homogêneo e luminoso.
+            </p>
+            <div class="transformation__meta">
+              <span>06 sessões</span>
+              <span class="dot" aria-hidden="true"></span>
+              <span>Manchas solares</span>
+              <span class="dot" aria-hidden="true"></span>
+              <span>Melasma</span>
+            </div>
+          </div>
+        </article>
+
+        <!-- Transformação 02 — Microagulhamento + Linhas de Expressão -->
+        <article class="transformation transformation--02" aria-labelledby="trans-02">
+          <div class="transformation__info">
+            <span class="transformation__num-row">
+              <span class="transformation__num">02</span>
+              <span class="transformation__line" aria-hidden="true"></span>
+              <span>Caso de Estudo</span>
+            </span>
+            <h3 class="transformation__title" id="trans-02">
+              Microagulhamento &amp; <em>Revitalização</em>
+            </h3>
+            <p class="transformation__quote">
+              O tempo permanece. A pele, <em>renovada</em>.
+            </p>
+            <p class="transformation__desc">
+              Indução de colágeno combinada a hidratação profunda. Linhas de expressão <em>suavizadas</em>, textura recuperada — naturalidade preservada do início ao fim do protocolo.
+            </p>
+            <div class="transformation__meta">
+              <span>04 sessões</span>
+              <span class="dot" aria-hidden="true"></span>
+              <span>Linhas de expressão</span>
+              <span class="dot" aria-hidden="true"></span>
+              <span>Anti-aging</span>
+            </div>
+          </div>
+
+          <div class="compare" data-compare role="img" aria-label="Comparativo antes e depois do microagulhamento e revitalização">
+            <img class="compare__after"  src="assets/resultado-02-depois.png" alt="Pele revitalizada após microagulhamento" loading="lazy" decoding="async" />
+            <img class="compare__before" src="assets/resultado-02-antes.png"  alt="Pele com linhas de expressão antes do tratamento" loading="lazy" decoding="async" />
+            <div class="compare__divider" aria-hidden="true"></div>
+            <div class="compare__handle"  aria-hidden="true"></div>
+            <span class="compare__label compare__label--before">Antes</span>
+            <span class="compare__label compare__label--after">Depois</span>
+            <span class="compare__hint" aria-hidden="true">arraste</span>
+          </div>
+        </article>
+
+      </div>
+
+      <div class="gallery__stats">
+        <div class="gallery__stat">
+          <strong>04</strong>
+          <span>anos de prática<br/>contínua</span>
         </div>
-
-        <figure class="gallery__cell gallery__cell--portrait">
-          <div class="gallery__img-wrap">
-            <img
-              src="assets/lais-nayelli-portrait-02.jpg"
-              alt="Laís Nayélli — close intimista"
-              loading="lazy"
-              decoding="async"
-            />
-          </div>
-          <figcaption class="gallery__cap">
-            <span class="gallery__cap-num">02</span>
-            <span class="gallery__cap-tag">Essência · 2024</span>
-          </figcaption>
-        </figure>
-
-        <div class="gallery__cell gallery__cell--stats">
-          <div class="gallery__stat">
-            <strong>04</strong>
-            <span>anos de prática<br/>contínua</span>
-          </div>
-          <div class="gallery__stat">
-            <strong>200<sup style="font-size:0.55em;font-style:normal;vertical-align:0.7em;color:var(--color-gold);">+</sup></strong>
-            <span>protocolos<br/>desenhados</span>
-          </div>
-          <div class="gallery__stat">
-            <strong>98%</strong>
-            <span>de pacientes<br/>recomendam</span>
-          </div>
+        <div class="gallery__stat">
+          <strong>200<sup style="font-size:0.55em;font-style:normal;vertical-align:0.7em;color:var(--color-gold);">+</sup></strong>
+          <span>protocolos<br/>desenhados</span>
         </div>
-
+        <div class="gallery__stat">
+          <strong>98%</strong>
+          <span>de pacientes<br/>recomendam</span>
+        </div>
       </div>
 
     </section>
@@ -2850,7 +3029,7 @@
     }
 
     /* ============================================================
-       :: 9) SESSÃO 04 — Galeria Sensorial
+       :: 9) SESSÃO 04 — Galeria Sensorial (Antes / Depois)
        ============================================================ */
 
     // 9.1 — Chapter line dourada
@@ -2888,66 +3067,122 @@
       scrollTrigger: { trigger: '.gallery__intro', start: 'top 85%', once: true }
     });
 
-    // 9.4 — Células emergem do fundo (fade + Y sutil) em stagger
-    ScrollTrigger.batch('.gallery__cell', {
-      start: 'top 90%',
-      onEnter: (els) => {
-        gsap.from(els, {
-          opacity: 0,
-          y: 32,
-          duration: 1.4,
-          stagger: 0.12,
-          ease: 'expo.out'
-        });
-      },
-      once: true
-    });
+    /* ------------------------------------------------------------
+       :: 9.4 — Compare slider (Antes / Depois) — drag + touch
+       ----------------------------------------------------------- */
+    function initCompare(el) {
+      let dragging = false;
 
-    // 9.5 — Soft focus → Nitidez perfeita
-    //         scrub do blur (--blur) e saturação (--sat) das imagens
-    //         conforme aproximam do centro da viewport
-    gsap.utils.toArray('.gallery__img-wrap img').forEach((img) => {
-      gsap.fromTo(img,
-        { '--blur': '18px', '--sat': 0.78 },
-        {
-          '--blur': '0px',
-          '--sat':  1.0,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: img,
-            start: 'top 90%',
-            end:   'center 55%',
-            scrub: 1
-          }
-        }
-      );
-      // Acompanha com leve "settle" do scale — a pele se assenta na clareza
-      gsap.to(img, {
-        scale: 1.0,
-        ease: 'none',
-        scrollTrigger: {
-          trigger: img,
-          start: 'top bottom',
-          end:   'center center',
-          scrub: 1.2
+      function setPos(clientX) {
+        const r = el.getBoundingClientRect();
+        const x = Math.max(0, Math.min(r.width, clientX - r.left));
+        const pos = (x / r.width) * 100;
+        el.style.setProperty('--pos', `${pos}%`);
+      }
+
+      function onDown(e) {
+        dragging = true;
+        el.classList.add('is-dragging', 'is-touched');
+        try { el.setPointerCapture(e.pointerId); } catch (_) {}
+        setPos(e.clientX);
+        e.preventDefault();
+      }
+      function onMove(e) {
+        if (!dragging) return;
+        setPos(e.clientX);
+      }
+      function onUp() {
+        dragging = false;
+        el.classList.remove('is-dragging');
+      }
+
+      el.addEventListener('pointerdown',   onDown);
+      el.addEventListener('pointermove',   onMove);
+      el.addEventListener('pointerup',     onUp);
+      el.addEventListener('pointercancel', onUp);
+      el.addEventListener('pointerleave',  onUp);
+
+      // Acessibilidade — setas do teclado quando focado
+      el.setAttribute('tabindex', '0');
+      el.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
+          const cur = parseFloat(getComputedStyle(el).getPropertyValue('--pos')) || 50;
+          const next = Math.max(0, Math.min(100, cur + (e.key === 'ArrowRight' ? 4 : -4)));
+          el.style.setProperty('--pos', `${next}%`);
+          el.classList.add('is-touched');
+          e.preventDefault();
         }
       });
-    });
-
-    // 9.6 — Pull quote + stats: reveal sequencial dentro de timelines
-    {
-      const tl = gsap.timeline({
-        scrollTrigger: { trigger: '.gallery__cell--statement', start: 'top 80%', once: true },
-        defaults: { ease: 'expo.out' }
-      });
-      tl.from('.gallery__quote-mark', { opacity: 0, y: 16, duration: 1.0 })
-        .from('.gallery__cell--statement p', { opacity: 0, y: 24, duration: 1.2 }, '-=0.7')
-        .from('.gallery__quote-cite',  { opacity: 0, y: 12, duration: 0.9 }, '-=0.8');
     }
 
-    // 9.7 — Stats: números sobem em stagger com leve fade
+    document.querySelectorAll('[data-compare]').forEach(initCompare);
+
+    /* ------------------------------------------------------------
+       :: 9.5 — Reveal coreografado: soft-focus → nitidez → divisor desliza
+       ----------------------------------------------------------- */
+    gsap.utils.toArray('[data-compare]').forEach((el, i) => {
+      const imgs = el.querySelectorAll('img');
+
+      // Estado inicial: tudo "antes" visível, fotos blurradas
+      gsap.set(el, { '--pos': '100%' });
+      gsap.set(imgs, { '--blur': '18px', '--sat': 0.78 });
+
+      const tl = gsap.timeline({
+        scrollTrigger: { trigger: el, start: 'top 75%', once: true },
+        defaults: { ease: 'power3.inOut' }
+      });
+
+      // 1. As duas imagens ganham nitidez perfeita (a pele se "assenta")
+      tl.to(imgs, {
+        '--blur': '0px',
+        '--sat':  1.0,
+        duration: 1.6,
+        ease: 'power3.out'
+      })
+      // 2. Acompanha leve "settle" do scale
+      .to(imgs, {
+        scale: 1.0,
+        duration: 1.4,
+        ease: 'power3.out'
+      }, 0)
+      // 3. Após nitidez, o divisor desliza revelando o "depois"
+      .to(el, {
+        '--pos': '50%',
+        duration: 2.0,
+        ease: 'power3.inOut'
+      }, '-=0.5');
+    });
+
+    /* ------------------------------------------------------------
+       :: 9.6 — Info lateral: linha dourada desenha + reveal de texto
+       ----------------------------------------------------------- */
+    gsap.utils.toArray('.transformation').forEach((t) => {
+      const info  = t.querySelector('.transformation__info');
+      const line  = t.querySelector('.transformation__line');
+      const items = info.querySelectorAll(
+        '.transformation__num-row, .transformation__title, .transformation__quote, .transformation__desc, .transformation__meta'
+      );
+
+      ScrollTrigger.create({
+        trigger: info,
+        start: 'top 80%',
+        once: true,
+        onEnter: () => {
+          line?.classList.add('is-drawn');
+          gsap.from(items, {
+            opacity: 0,
+            y: 18,
+            duration: 1.1,
+            stagger: 0.12,
+            ease: 'expo.out'
+          });
+        }
+      });
+    });
+
+    // 9.7 — Stats: stagger sedoso
     ScrollTrigger.create({
-      trigger: '.gallery__cell--stats',
+      trigger: '.gallery__stats',
       start: 'top 85%',
       once: true,
       onEnter: () => {
@@ -2960,6 +3195,19 @@
         });
       }
     });
+
+    // 9.8 — Hover do compare concentra a seda dourada do background
+    if (!isTouch) {
+      document.querySelectorAll('[data-compare]').forEach((el) => {
+        el.addEventListener('pointerenter', (e) => {
+          const r = el.getBoundingClientRect();
+          window.__silk?.setHover(r.left + r.width / 2, r.top + r.height / 2, 0.65);
+        });
+        el.addEventListener('pointerleave', () => {
+          window.__silk?.setHover(0, 0, 0);
+        });
+      });
+    }
   </script>
 
 </body>
