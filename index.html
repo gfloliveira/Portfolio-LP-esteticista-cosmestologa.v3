@@ -175,6 +175,16 @@
       inherits: false;
       initial-value: 0%;
     }
+    @property --blur {
+      syntax: '<length>';
+      inherits: false;
+      initial-value: 18px;
+    }
+    @property --sat {
+      syntax: '<number>';
+      inherits: false;
+      initial-value: 0.78;
+    }
 
     /* ----------------------------------------------------------
        :: Nav
@@ -1385,6 +1395,314 @@
       .protocol-card::before { display: none; }
     }
 
+    /* ============================================================
+       :: SESSÃO 04 — Galeria Sensorial (Resultados)
+       ============================================================ */
+
+    .gallery {
+      position: relative;
+      z-index: 3;
+      padding: clamp(5rem, 10vw, 9rem) var(--gutter) clamp(5rem, 10vw, 9rem);
+      max-width: var(--maxw);
+      margin: 0 auto;
+    }
+
+    .gallery__head {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(2rem, 6vw, 5rem);
+      align-items: end;
+      margin-bottom: clamp(3.5rem, 7vw, 6rem);
+    }
+    .gallery__chapter {
+      display: inline-flex;
+      align-items: center;
+      gap: 1.1rem;
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.32em;
+      color: var(--color-text-soft);
+      margin-bottom: clamp(1rem, 2vw, 1.8rem);
+    }
+    .gallery__chapter-num {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 1.05rem;
+      letter-spacing: 0.04em;
+      color: var(--color-gold);
+      text-transform: none;
+    }
+    .gallery__chapter-line {
+      display: inline-block;
+      width: clamp(40px, 6vw, 80px);
+      height: 1px;
+      background: var(--color-gold);
+      transform-origin: left center;
+      transform: scaleX(0);
+    }
+    .gallery__chapter-line.is-drawn {
+      transform: scaleX(1);
+      transition: transform 1.4s var(--ease-silk);
+    }
+
+    .gallery__title {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: clamp(2.4rem, 5.4vw, 5.4rem);
+      line-height: 1.02;
+      letter-spacing: -0.018em;
+      color: var(--color-text);
+    }
+    .gallery__title .line {
+      display: block;
+      overflow: hidden;
+      padding: 0.06em 0;
+    }
+    .gallery__title .line > * {
+      display: inline-block;
+      transform: translateY(110%);
+      will-change: transform;
+    }
+    .gallery__title em {
+      font-style: italic;
+      color: var(--color-gold);
+      font-weight: 500;
+    }
+
+    .gallery__intro {
+      font-size: clamp(1rem, 1.05vw, 1.05rem);
+      line-height: 1.75;
+      color: var(--color-text-soft);
+      max-width: 44ch;
+      align-self: end;
+      justify-self: end;
+    }
+    .gallery__intro em {
+      font-family: var(--font-serif);
+      font-style: italic;
+      color: var(--color-text);
+      font-size: 1.06em;
+    }
+
+    /* Grid assimétrico — 12 colunas, 3 linhas */
+    .gallery__grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      grid-template-rows: 1fr 1fr auto;
+      gap: clamp(0.75rem, 1.2vw, 1.2rem);
+      min-height: clamp(580px, 72vw, 920px);
+    }
+
+    .gallery__cell {
+      position: relative;
+      overflow: hidden;
+      background: var(--color-bg-warm);
+      border: 1px solid rgba(197, 160, 89, 0.22);
+      isolation: isolate;
+    }
+
+    .gallery__cell--feature {
+      grid-column: 1 / 8;
+      grid-row: 1 / 3;
+    }
+    .gallery__cell--statement {
+      grid-column: 8 / 13;
+      grid-row: 1 / 2;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: clamp(2rem, 3.2vw, 3.5rem);
+      background:
+        radial-gradient(120% 80% at 100% 0%, rgba(230, 207, 160, 0.16), transparent 60%),
+        var(--color-bg-warm);
+    }
+    .gallery__cell--portrait {
+      grid-column: 8 / 13;
+      grid-row: 2 / 3;
+    }
+    .gallery__cell--stats {
+      grid-column: 1 / 13;
+      grid-row: 3 / 4;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      align-items: center;
+      padding: clamp(1.8rem, 3vw, 3rem) clamp(1.5rem, 3vw, 3rem);
+      background:
+        linear-gradient(105deg,
+          var(--color-bg-warm) 0%,
+          var(--color-bg) 60%,
+          rgba(230, 207, 160, 0.08) 100%);
+    }
+
+    /* Wrapper de imagem com soft-focus inicial */
+    .gallery__img-wrap {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+    .gallery__img-wrap img {
+      --blur: 18px;
+      --sat:  0.78;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 28%;
+      filter: blur(var(--blur)) saturate(var(--sat));
+      transform: scale(1.06);
+      will-change: filter;
+      transition: transform 1.4s var(--ease-silk);
+    }
+    .gallery__cell--feature .gallery__img-wrap img { object-position: center 22%; }
+    .gallery__cell--portrait .gallery__img-wrap img { object-position: center 30%; }
+
+    /* Vinheta + máscara de leitura para o caption */
+    .gallery__img-wrap::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(140% 90% at 50% 50%, transparent 55%, rgba(43, 36, 30, 0.22) 100%),
+        linear-gradient(180deg, transparent 55%, rgba(43, 36, 30, 0.55) 100%);
+      mix-blend-mode: multiply;
+    }
+
+    /* Caption sobre a imagem */
+    .gallery__cap {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      padding: clamp(1rem, 1.5vw, 1.4rem) clamp(1.2rem, 2vw, 1.8rem);
+      display: flex;
+      align-items: baseline;
+      justify-content: space-between;
+      gap: 1rem;
+      color: var(--color-bg-warm);
+      z-index: 2;
+    }
+    .gallery__cap-num {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 1.25rem;
+      color: var(--color-gold-light);
+      letter-spacing: 0.02em;
+      line-height: 1;
+    }
+    .gallery__cap-tag {
+      font-size: 0.66rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: rgba(250, 249, 246, 0.92);
+    }
+    .gallery__cap-tag::before {
+      content: "";
+      display: inline-block;
+      width: 16px;
+      height: 1px;
+      background: var(--color-gold-light);
+      vertical-align: middle;
+      margin-right: 0.7em;
+    }
+
+    /* Pull quote — cartão statement */
+    .gallery__quote-mark {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: clamp(4rem, 6vw, 6rem);
+      line-height: 0.5;
+      color: var(--color-gold);
+      margin-bottom: 1.2rem;
+      user-select: none;
+    }
+    .gallery__cell--statement p {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-style: italic;
+      font-size: clamp(1.45rem, 2.1vw, 2rem);
+      line-height: 1.3;
+      color: var(--color-text);
+      letter-spacing: -0.005em;
+      margin-bottom: 1.4rem;
+    }
+    .gallery__cell--statement p em {
+      color: var(--color-gold);
+      font-weight: 500;
+    }
+    .gallery__quote-cite {
+      font-size: 0.7rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--color-text-mute);
+    }
+
+    /* Stats strip */
+    .gallery__stat {
+      display: flex;
+      align-items: baseline;
+      gap: clamp(0.8rem, 1.5vw, 1.4rem);
+      padding: 0 clamp(0.8rem, 2vw, 2rem);
+      border-right: 1px solid rgba(43, 36, 30, 0.1);
+    }
+    .gallery__stat:last-child { border-right: none; }
+    .gallery__stat strong {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-style: italic;
+      font-size: clamp(2.4rem, 4.6vw, 4.4rem);
+      color: var(--color-gold);
+      letter-spacing: -0.02em;
+      line-height: 0.85;
+      flex-shrink: 0;
+    }
+    .gallery__stat span {
+      font-size: 0.72rem;
+      letter-spacing: 0.26em;
+      text-transform: uppercase;
+      color: var(--color-text-soft);
+      line-height: 1.5;
+      max-width: 18ch;
+    }
+
+    /* Responsivo Sessão 04 */
+    @media (max-width: 1024px) {
+      .gallery__head { grid-template-columns: 1fr; gap: 1.5rem; align-items: start; }
+      .gallery__intro { justify-self: start; }
+      .gallery__grid {
+        grid-template-columns: repeat(6, 1fr);
+        grid-template-rows: auto auto auto auto;
+        min-height: auto;
+      }
+      .gallery__cell--feature  { grid-column: 1 / 7; grid-row: 1; aspect-ratio: 4 / 5; }
+      .gallery__cell--statement { grid-column: 1 / 7; grid-row: 2; }
+      .gallery__cell--portrait { grid-column: 1 / 7; grid-row: 3; aspect-ratio: 5 / 4; }
+      .gallery__cell--stats    { grid-column: 1 / 7; grid-row: 4; }
+    }
+    @media (max-width: 720px) {
+      .gallery { padding: clamp(4rem, 10vw, 5.5rem) var(--gutter) clamp(3.5rem, 8vw, 5rem); }
+      .gallery__title { font-size: clamp(2rem, 9.5vw, 3.4rem); }
+      .gallery__chapter-line { width: 32px; }
+      .gallery__cell--statement { padding: 2rem 1.5rem; }
+      .gallery__cell--statement p { font-size: 1.3rem; }
+      .gallery__cell--stats {
+        grid-template-columns: 1fr;
+        gap: 1rem;
+        padding: 1.6rem 1.4rem;
+      }
+      .gallery__stat {
+        border-right: none;
+        border-bottom: 1px solid rgba(43, 36, 30, 0.08);
+        padding: 0.8rem 0;
+      }
+      .gallery__stat:last-child { border-bottom: none; padding-bottom: 0; }
+      .gallery__stat:first-child { padding-top: 0; }
+      .gallery__stat strong { font-size: clamp(2.4rem, 12vw, 3.4rem); }
+    }
+    @media (max-width: 380px) {
+      .gallery__cell--feature  { aspect-ratio: 3 / 4; }
+    }
+
     /* ----------------------------------------------------------
        :: Responsivo — Tablet (≤ 1024px)
        ---------------------------------------------------------- */
@@ -1896,6 +2214,85 @@
             </a>
           </div>
         </article>
+
+      </div>
+
+    </section>
+
+    <!-- ============================================================
+         SESSÃO 04 — Galeria Sensorial (Resultados)
+         ============================================================ -->
+    <section class="gallery" id="galeria" aria-labelledby="gallery-title">
+
+      <header class="gallery__head">
+        <div>
+          <span class="gallery__chapter">
+            <span class="gallery__chapter-num">04</span>
+            <span class="gallery__chapter-line" aria-hidden="true"></span>
+            <span>Galeria Sensorial</span>
+          </span>
+          <h2 class="gallery__title" id="gallery-title">
+            <span class="line"><em>Resultados</em></span>
+            <span class="line"><span>que se sentem </span><em>antes de se verem</em><span>.</span></span>
+          </h2>
+        </div>
+        <p class="gallery__intro">
+          Pele renovada, luz reconquistada. Cada protocolo conta uma história silenciosa de <em>cuidado</em> — abaixo, alguns fragmentos do atelier.
+        </p>
+      </header>
+
+      <div class="gallery__grid">
+
+        <figure class="gallery__cell gallery__cell--feature">
+          <div class="gallery__img-wrap">
+            <img
+              src="assets/lais-nayelli-portrait-01.jpg"
+              alt="Laís Nayélli em seu atelier de cosmetologia"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+          <figcaption class="gallery__cap">
+            <span class="gallery__cap-num">01</span>
+            <span class="gallery__cap-tag">No Atelier · 2024</span>
+          </figcaption>
+        </figure>
+
+        <div class="gallery__cell gallery__cell--statement">
+          <span class="gallery__quote-mark" aria-hidden="true">“</span>
+          <p>A pele recupera, antes de tudo, sua <em>confiança</em>.</p>
+          <span class="gallery__quote-cite">— Filosofia do Atelier</span>
+        </div>
+
+        <figure class="gallery__cell gallery__cell--portrait">
+          <div class="gallery__img-wrap">
+            <img
+              src="assets/lais-nayelli-portrait-02.jpg"
+              alt="Laís Nayélli — close intimista"
+              loading="lazy"
+              decoding="async"
+            />
+          </div>
+          <figcaption class="gallery__cap">
+            <span class="gallery__cap-num">02</span>
+            <span class="gallery__cap-tag">Essência · 2024</span>
+          </figcaption>
+        </figure>
+
+        <div class="gallery__cell gallery__cell--stats">
+          <div class="gallery__stat">
+            <strong>04</strong>
+            <span>anos de prática<br/>contínua</span>
+          </div>
+          <div class="gallery__stat">
+            <strong>200<sup style="font-size:0.55em;font-style:normal;vertical-align:0.7em;color:var(--color-gold);">+</sup></strong>
+            <span>protocolos<br/>desenhados</span>
+          </div>
+          <div class="gallery__stat">
+            <strong>98%</strong>
+            <span>de pacientes<br/>recomendam</span>
+          </div>
+        </div>
 
       </div>
 
@@ -2451,6 +2848,118 @@
         });
       });
     }
+
+    /* ============================================================
+       :: 9) SESSÃO 04 — Galeria Sensorial
+       ============================================================ */
+
+    // 9.1 — Chapter line dourada
+    ScrollTrigger.create({
+      trigger: '.gallery__head',
+      start: 'top 80%',
+      once: true,
+      onEnter: () => {
+        document.querySelector('.gallery .gallery__chapter-line')
+          ?.classList.add('is-drawn');
+      }
+    });
+
+    // 9.2 — Título por linha
+    ScrollTrigger.create({
+      trigger: '.gallery__title',
+      start: 'top 80%',
+      once: true,
+      onEnter: () => {
+        gsap.to('.gallery__title .line > *', {
+          y: '0%',
+          duration: 1.4,
+          stagger: 0.09,
+          ease: 'expo.out'
+        });
+      }
+    });
+
+    // 9.3 — Intro
+    gsap.from('.gallery__intro', {
+      opacity: 0,
+      y: 16,
+      duration: 1.0,
+      ease: 'power3.out',
+      scrollTrigger: { trigger: '.gallery__intro', start: 'top 85%', once: true }
+    });
+
+    // 9.4 — Células emergem do fundo (fade + Y sutil) em stagger
+    ScrollTrigger.batch('.gallery__cell', {
+      start: 'top 90%',
+      onEnter: (els) => {
+        gsap.from(els, {
+          opacity: 0,
+          y: 32,
+          duration: 1.4,
+          stagger: 0.12,
+          ease: 'expo.out'
+        });
+      },
+      once: true
+    });
+
+    // 9.5 — Soft focus → Nitidez perfeita
+    //         scrub do blur (--blur) e saturação (--sat) das imagens
+    //         conforme aproximam do centro da viewport
+    gsap.utils.toArray('.gallery__img-wrap img').forEach((img) => {
+      gsap.fromTo(img,
+        { '--blur': '18px', '--sat': 0.78 },
+        {
+          '--blur': '0px',
+          '--sat':  1.0,
+          ease: 'none',
+          scrollTrigger: {
+            trigger: img,
+            start: 'top 90%',
+            end:   'center 55%',
+            scrub: 1
+          }
+        }
+      );
+      // Acompanha com leve "settle" do scale — a pele se assenta na clareza
+      gsap.to(img, {
+        scale: 1.0,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: img,
+          start: 'top bottom',
+          end:   'center center',
+          scrub: 1.2
+        }
+      });
+    });
+
+    // 9.6 — Pull quote + stats: reveal sequencial dentro de timelines
+    {
+      const tl = gsap.timeline({
+        scrollTrigger: { trigger: '.gallery__cell--statement', start: 'top 80%', once: true },
+        defaults: { ease: 'expo.out' }
+      });
+      tl.from('.gallery__quote-mark', { opacity: 0, y: 16, duration: 1.0 })
+        .from('.gallery__cell--statement p', { opacity: 0, y: 24, duration: 1.2 }, '-=0.7')
+        .from('.gallery__quote-cite',  { opacity: 0, y: 12, duration: 0.9 }, '-=0.8');
+    }
+
+    // 9.7 — Stats: números sobem em stagger com leve fade
+    ScrollTrigger.create({
+      trigger: '.gallery__cell--stats',
+      start: 'top 85%',
+      once: true,
+      onEnter: () => {
+        gsap.from('.gallery__stat', {
+          opacity: 0,
+          y: 24,
+          duration: 1.2,
+          stagger: 0.14,
+          ease: 'expo.out'
+        });
+      }
+    });
   </script>
 
 </body>
