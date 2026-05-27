@@ -167,9 +167,13 @@
     .page {
       position: relative;
       z-index: 3;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
+    }
+
+    /* @property — permite ao browser interpolar o feixe de luz nativamente */
+    @property --p {
+      syntax: '<percentage>';
+      inherits: false;
+      initial-value: 0%;
     }
 
     /* ----------------------------------------------------------
@@ -393,9 +397,10 @@
        ---------------------------------------------------------- */
     .hero {
       position: relative;
-      flex: 1;
       display: grid;
       grid-template-rows: auto 1fr auto;
+      min-height: calc(100vh - 5.5rem);
+      min-height: calc(100dvh - 5.5rem);
       padding: clamp(2rem, 6vw, 5rem) var(--gutter) clamp(2rem, 4vw, 3.5rem);
       max-width: var(--maxw);
       width: 100%;
@@ -700,6 +705,362 @@
         transparent 100%);
     }
 
+    /* ============================================================
+       :: SESSÃO 02 — Filosofia & Assinatura (A Curadoria da Pele)
+       ============================================================ */
+
+    .philosophy {
+      position: relative;
+      z-index: 3;
+      padding: clamp(6rem, 14vw, 12rem) var(--gutter) clamp(5rem, 10vw, 9rem);
+      max-width: var(--maxw);
+      margin: 0 auto;
+    }
+
+    /* Chapter eyebrow — "02 · A Curadoria da Pele" */
+    .philosophy__head {
+      margin-bottom: clamp(3rem, 6vw, 5.5rem);
+    }
+    .philosophy__chapter {
+      display: inline-flex;
+      align-items: center;
+      gap: 1.1rem;
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.32em;
+      color: var(--color-text-soft);
+    }
+    .philosophy__chapter-num {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 1.05rem;
+      letter-spacing: 0.04em;
+      color: var(--color-gold);
+      text-transform: none;
+    }
+    .philosophy__chapter-line {
+      display: inline-block;
+      width: clamp(40px, 6vw, 80px);
+      height: 1px;
+      background: var(--color-gold);
+      transform-origin: left center;
+      transform: scaleX(0);
+    }
+    .philosophy__chapter-line.is-drawn {
+      transform: scaleX(1);
+      transition: transform 1.4s var(--ease-silk);
+    }
+
+    /* Grid principal — texto + retrato */
+    .philosophy__grid {
+      display: grid;
+      grid-template-columns: 1.05fr 1fr;
+      gap: clamp(3rem, 7vw, 7rem);
+      align-items: center;
+    }
+    .philosophy__col--text {
+      display: flex;
+      flex-direction: column;
+      gap: clamp(2rem, 3.5vw, 3rem);
+    }
+
+    /* Título — line reveal sedoso */
+    .philosophy__title {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: clamp(2.4rem, 5.6vw, 5.6rem);
+      line-height: 1.02;
+      letter-spacing: -0.018em;
+      color: var(--color-text);
+    }
+    .philosophy__title .line {
+      display: block;
+      overflow: hidden;
+      padding: 0.06em 0;
+    }
+    .philosophy__title .line > * {
+      display: inline-block;
+      transform: translateY(110%);
+      will-change: transform;
+    }
+    .philosophy__title em {
+      font-style: italic;
+      color: var(--color-gold);
+      font-weight: 500;
+    }
+
+    /* Corpo — feixe de luz (mask gradient animado) */
+    .philosophy__body {
+      display: flex;
+      flex-direction: column;
+      gap: 1.4rem;
+      max-width: 52ch;
+    }
+    .philosophy__body p {
+      font-size: clamp(1rem, 1.1vw, 1.08rem);
+      line-height: 1.75;
+      color: var(--color-text-soft);
+    }
+    .philosophy__body em {
+      font-family: var(--font-serif);
+      font-style: italic;
+      color: var(--color-text);
+      font-size: 1.06em;
+      letter-spacing: 0.005em;
+    }
+
+    .mask-reveal {
+      --p: 0%;
+      -webkit-mask-image: linear-gradient(95deg,
+        #000 0%,
+        #000 var(--p),
+        rgba(0,0,0,0.0) calc(var(--p) + 14%),
+        rgba(0,0,0,0.0) 100%);
+              mask-image: linear-gradient(95deg,
+        #000 0%,
+        #000 var(--p),
+        rgba(0,0,0,0.0) calc(var(--p) + 14%),
+        rgba(0,0,0,0.0) 100%);
+      -webkit-mask-repeat: no-repeat;
+              mask-repeat: no-repeat;
+      -webkit-mask-size: 100% 100%;
+              mask-size: 100% 100%;
+    }
+
+    /* Assinatura */
+    .philosophy__sig {
+      display: flex;
+      align-items: center;
+      gap: 1.2rem;
+      padding-top: 1.2rem;
+      border-top: 1px solid rgba(43, 36, 30, 0.1);
+    }
+    .philosophy__sig-line {
+      flex-shrink: 0;
+      width: 36px;
+      height: 1px;
+      background: var(--color-gold);
+    }
+    .philosophy__sig-text strong {
+      display: block;
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 500;
+      font-size: 1.18rem;
+      color: var(--color-text);
+      letter-spacing: 0.02em;
+    }
+    .philosophy__sig-text span {
+      display: block;
+      font-size: 0.72rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--color-text-mute);
+      margin-top: 0.35rem;
+    }
+
+    /* ------- Portrait (passe-partout dourado + parallax) ------- */
+    .portrait {
+      position: relative;
+      display: block;
+      max-width: 540px;
+      margin-left: auto;
+    }
+    .portrait__frame {
+      position: relative;
+      border: 1px solid var(--color-gold);
+      padding: clamp(14px, 1.6vw, 22px);
+      background: var(--color-bg-warm);
+      box-shadow:
+        0 50px 90px -50px rgba(43, 36, 30, 0.28),
+        0 0 0 1px rgba(197, 160, 89, 0.0);
+    }
+    .portrait__img-wrap {
+      position: relative;
+      overflow: hidden;
+      aspect-ratio: 4 / 5;
+      background: var(--color-bg-deep);
+    }
+    .portrait__img-wrap::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(120% 80% at 50% 50%, transparent 50%, rgba(43, 36, 30, 0.18) 100%),
+        linear-gradient(180deg, rgba(250, 249, 246, 0.0) 70%, rgba(43, 36, 30, 0.06) 100%);
+      mix-blend-mode: multiply;
+    }
+    .portrait__frame img {
+      position: absolute;
+      inset: -10%;
+      width: 120%;
+      height: 120%;
+      object-fit: cover;
+      object-position: center 28%;
+      filter: saturate(0.96) contrast(1.02);
+      will-change: transform;
+    }
+
+    /* Tick marks externos — passe-partout marcas de canto */
+    .portrait__corner {
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      pointer-events: none;
+      z-index: 3;
+    }
+    .portrait__corner--tl { top: 0;     left: 0;     border-top: 1px solid var(--color-gold); border-left:  1px solid var(--color-gold); transform: translate(-7px, -7px); }
+    .portrait__corner--tr { top: 0;     right: 0;    border-top: 1px solid var(--color-gold); border-right: 1px solid var(--color-gold); transform: translate( 7px, -7px); }
+    .portrait__corner--bl { bottom: 0;  left: 0;     border-bottom: 1px solid var(--color-gold); border-left:  1px solid var(--color-gold); transform: translate(-7px,  7px); }
+    .portrait__corner--br { bottom: 0;  right: 0;    border-bottom: 1px solid var(--color-gold); border-right: 1px solid var(--color-gold); transform: translate( 7px,  7px); }
+
+    /* Selo flutuante — credencial dourada */
+    .portrait__seal {
+      position: absolute;
+      bottom: clamp(22px, 3vw, 36px);
+      left: clamp(22px, 3vw, 36px);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.5rem 0.9rem;
+      background: rgba(250, 249, 246, 0.86);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border: 1px solid rgba(197, 160, 89, 0.5);
+      border-radius: 999px;
+      font-size: 0.66rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--color-text);
+      z-index: 4;
+    }
+    .portrait__seal::before {
+      content: "";
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--color-gold);
+      box-shadow: 0 0 0 3px rgba(197, 160, 89, 0.18);
+    }
+
+    /* Caption sob o retrato */
+    .portrait__cap {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 1.5rem;
+      margin-top: 1.2rem;
+      padding-top: 1rem;
+      border-top: 1px solid rgba(197, 160, 89, 0.35);
+    }
+    .portrait__mark {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 1.4rem;
+      color: var(--color-gold);
+      line-height: 1;
+    }
+    .portrait__mark em {
+      font-size: 0.7em;
+      vertical-align: 0.4em;
+      margin-left: 0.05em;
+    }
+    .portrait__cap-text {
+      text-align: right;
+      font-size: 0.68rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--color-text-mute);
+      line-height: 1.5;
+    }
+    .portrait__cap-text em {
+      display: block;
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 0.95rem;
+      letter-spacing: 0.02em;
+      text-transform: none;
+      color: var(--color-text-soft);
+      margin-bottom: 0.25rem;
+    }
+
+    /* ------- Pilares ------- */
+    .philosophy__pillars {
+      list-style: none;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: clamp(2rem, 4vw, 4.5rem);
+      margin-top: clamp(5rem, 9vw, 9rem);
+      padding-top: clamp(3rem, 5vw, 5rem);
+      border-top: 1px solid rgba(43, 36, 30, 0.08);
+    }
+    .philosophy__pillars li {
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      position: relative;
+      padding-left: 1.4rem;
+    }
+    .philosophy__pillars li::before {
+      content: "";
+      position: absolute;
+      top: 0.65rem;
+      left: 0;
+      width: 8px;
+      height: 1px;
+      background: var(--color-gold);
+    }
+    .philosophy__pillars-num {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 1.5rem;
+      color: var(--color-gold);
+      letter-spacing: 0.02em;
+    }
+    .philosophy__pillars strong {
+      font-family: var(--font-serif);
+      font-weight: 500;
+      font-size: 1.45rem;
+      color: var(--color-text);
+      letter-spacing: -0.005em;
+      line-height: 1.2;
+    }
+    .philosophy__pillars p {
+      font-size: 0.92rem;
+      line-height: 1.7;
+      color: var(--color-text-soft);
+      max-width: 34ch;
+    }
+
+    /* Responsivo — Sessão 02 */
+    @media (max-width: 980px) {
+      .philosophy__grid { grid-template-columns: 1fr; gap: clamp(2.5rem, 6vw, 4rem); }
+      .philosophy__col--media { order: -1; }
+      .portrait { max-width: 480px; margin: 0 auto; }
+    }
+    @media (max-width: 720px) {
+      .philosophy { padding: clamp(4.5rem, 12vw, 6rem) var(--gutter) clamp(3.5rem, 8vw, 5rem); }
+      .philosophy__head { margin-bottom: 2.5rem; }
+      .philosophy__chapter { font-size: 0.66rem; letter-spacing: 0.26em; gap: 0.8rem; }
+      .philosophy__chapter-line { width: 32px; }
+      .philosophy__title { font-size: clamp(2rem, 9.5vw, 3.4rem); }
+      .philosophy__body p { font-size: 0.96rem; line-height: 1.7; }
+      .philosophy__pillars {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        margin-top: 3.5rem;
+        padding-top: 2.5rem;
+      }
+      .philosophy__pillars strong { font-size: 1.25rem; }
+      .portrait__seal { font-size: 0.6rem; letter-spacing: 0.22em; padding: 0.4rem 0.7rem; }
+      .portrait__cap-text { font-size: 0.62rem; letter-spacing: 0.22em; }
+    }
+    @media (max-width: 380px) {
+      .philosophy__title { font-size: clamp(1.8rem, 11vw, 2.4rem); }
+      .portrait__cap { flex-direction: column; align-items: flex-start; gap: 0.6rem; }
+      .portrait__cap-text { text-align: left; }
+    }
+
     /* ----------------------------------------------------------
        :: Responsivo — Tablet (≤ 1024px)
        ---------------------------------------------------------- */
@@ -966,6 +1327,95 @@
       <span>Role para descobrir</span>
       <span class="scroll-cue__line"></span>
     </div>
+
+    <!-- ============================================================
+         SESSÃO 02 — Filosofia & Assinatura (A Curadoria da Pele)
+         ============================================================ -->
+    <section class="philosophy" id="filosofia" aria-labelledby="philosophy-title">
+
+      <header class="philosophy__head">
+        <span class="philosophy__chapter">
+          <span class="philosophy__chapter-num">02</span>
+          <span class="philosophy__chapter-line" aria-hidden="true"></span>
+          <span>A Curadoria da Pele</span>
+        </span>
+      </header>
+
+      <div class="philosophy__grid">
+
+        <div class="philosophy__col philosophy__col--text">
+          <h2 class="philosophy__title" id="philosophy-title">
+            <span class="line"><span>Onde a&nbsp;</span><em>ciência</em></span>
+            <span class="line"><span>se torna&nbsp;</span><em>ritual</em><span>.</span></span>
+          </h2>
+
+          <div class="philosophy__body">
+            <p class="mask-reveal">
+              Cada pele guarda uma narrativa. Por isso, no atelier, nenhum protocolo nasce de uma fórmula pronta — todos são desenhados a partir do <em>diagnóstico atento</em> da sua história, do seu tempo, da sua arquitetura única.
+            </p>
+            <p class="mask-reveal">
+              Da limpeza profunda ao <em>microagulhamento</em>, da revitalização ao tratamento de <em>hipercromias</em>, cada gesto carrega uma intenção. A precisão da cosmetologia avançada encontra o cuidado contemplativo de quem entende que beleza é equilíbrio — vivido em camadas, ao longo do tempo.
+            </p>
+          </div>
+
+          <div class="philosophy__sig">
+            <span class="philosophy__sig-line" aria-hidden="true"></span>
+            <div class="philosophy__sig-text">
+              <strong>Laís Nayélli</strong>
+              <span>Esteticista &amp; Cosmetóloga</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="philosophy__col philosophy__col--media">
+          <figure class="portrait">
+            <div class="portrait__frame">
+              <div class="portrait__img-wrap">
+                <img
+                  src="assets/lais-nayelli-portrait-01.jpg"
+                  alt="Laís Nayélli em seu atelier de estética avançada"
+                  loading="lazy"
+                  decoding="async"
+                />
+              </div>
+              <span class="portrait__corner portrait__corner--tl" aria-hidden="true"></span>
+              <span class="portrait__corner portrait__corner--tr" aria-hidden="true"></span>
+              <span class="portrait__corner portrait__corner--bl" aria-hidden="true"></span>
+              <span class="portrait__corner portrait__corner--br" aria-hidden="true"></span>
+              <span class="portrait__seal" aria-hidden="true">Esteticista &amp; Cosmetóloga</span>
+            </div>
+
+            <figcaption class="portrait__cap">
+              <span class="portrait__mark" aria-hidden="true">L<em>n</em></span>
+              <span class="portrait__cap-text">
+                <em>Atelier Laís Nayélli</em>
+                Estética &amp; Cosmetologia
+              </span>
+            </figcaption>
+          </figure>
+        </div>
+
+      </div>
+
+      <ul class="philosophy__pillars" role="list">
+        <li>
+          <span class="philosophy__pillars-num">01</span>
+          <strong>Diagnóstico sob medida</strong>
+          <p>Toda jornada começa com escuta. Leitura precisa da pele, da rotina e das expectativas — antes de qualquer gesto.</p>
+        </li>
+        <li>
+          <span class="philosophy__pillars-num">02</span>
+          <strong>Ciência sensorial</strong>
+          <p>Ativos de alta performance combinados a uma experiência calma, lenta, contemplativa. Tecnologia que se faz sentir.</p>
+        </li>
+        <li>
+          <span class="philosophy__pillars-num">03</span>
+          <strong>Resultado vivo</strong>
+          <p>Protocolos pensados em camadas — efeito imediato e evolução duradoura, respeitando o tempo natural da pele.</p>
+        </li>
+      </ul>
+
+    </section>
 
   </main>
 
@@ -1266,6 +1716,132 @@
     setRealVh();
     window.addEventListener('resize', setRealVh, { passive: true });
     window.addEventListener('orientationchange', setRealVh, { passive: true });
+
+    /* ============================================================
+       :: 7) SESSÃO 02 — ScrollTrigger choreography
+       ============================================================ */
+
+    // 7.1 — Fade out das trilhas fixas ao sair da Hero
+    gsap.to(['.hero__rail', '.scroll-cue', '.thread'], {
+      opacity: 0,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: '.hero',
+        start: 'bottom 90%',
+        end: 'bottom 40%',
+        scrub: true,
+      }
+    });
+
+    // 7.2 — Chapter line: traço dourado desenha à esquerda → direita
+    ScrollTrigger.create({
+      trigger: '.philosophy__head',
+      start: 'top 80%',
+      once: true,
+      onEnter: () => {
+        document.querySelector('.philosophy__chapter-line')
+          ?.classList.add('is-drawn');
+      }
+    });
+
+    // 7.3 — Título: cada palavra/itálico sobe atrás da máscara
+    ScrollTrigger.create({
+      trigger: '.philosophy__title',
+      start: 'top 78%',
+      once: true,
+      onEnter: () => {
+        gsap.to('.philosophy__title .line > *', {
+          y: '0%',
+          duration: 1.5,
+          stagger: 0.09,
+          ease: 'expo.out'
+        });
+      }
+    });
+
+    // 7.4 — Parágrafos: feixe de luz revelando da esquerda para a direita
+    //         (mask-image animado via custom property --p)
+    gsap.utils.toArray('.philosophy__body .mask-reveal').forEach((el, i) => {
+      ScrollTrigger.create({
+        trigger: el,
+        start: 'top 82%',
+        once: true,
+        onEnter: () => {
+          gsap.fromTo(el,
+            { '--p': '-12%' },
+            {
+              '--p': '112%',
+              duration: 2.6,
+              ease: 'power2.inOut',
+              delay: i * 0.2
+            }
+          );
+        }
+      });
+    });
+
+    // 7.5 — Assinatura: aparece em seguida
+    gsap.from('.philosophy__sig', {
+      opacity: 0,
+      y: 16,
+      duration: 1.1,
+      ease: 'power3.out',
+      scrollTrigger: { trigger: '.philosophy__sig', start: 'top 85%', once: true }
+    });
+
+    // 7.6 — Parallax suave do retrato (img desliza dentro do frame)
+    gsap.fromTo('.portrait__frame img',
+      { yPercent: isMobile ? 4 : 6 },
+      {
+        yPercent: isMobile ? -4 : -6,
+        ease: 'none',
+        scrollTrigger: {
+          trigger: '.portrait',
+          start: 'top bottom',
+          end: 'bottom top',
+          scrub: 1.2
+        }
+      }
+    );
+
+    // 7.7 — Reveal do retrato (frame + corners + selo)
+    {
+      const tl = gsap.timeline({
+        scrollTrigger: { trigger: '.portrait', start: 'top 82%', once: true },
+        defaults: { ease: 'expo.out' }
+      });
+      tl.from('.portrait__frame',  { opacity: 0, y: 36, duration: 1.4 })
+        .from('.portrait__corner', { opacity: 0, scale: 0.4, stagger: 0.08, duration: 0.8, ease: 'power3.out' }, '-=0.9')
+        .from('.portrait__seal',   { opacity: 0, y: 12, duration: 0.9 }, '-=0.6')
+        .from('.portrait__cap',    { opacity: 0, y: 12, duration: 0.9 }, '-=0.7');
+    }
+
+    // 7.8 — Pilares: stagger sedoso
+    ScrollTrigger.create({
+      trigger: '.philosophy__pillars',
+      start: 'top 82%',
+      once: true,
+      onEnter: () => {
+        gsap.from('.philosophy__pillars li', {
+          opacity: 0,
+          y: 32,
+          duration: 1.2,
+          stagger: 0.14,
+          ease: 'power3.out'
+        });
+      }
+    });
+
+    // 7.9 — Hover do retrato: a seda dourada do background se intensifica
+    //          (sutilíssimo — só em ponteiro fino)
+    if (!isTouch) {
+      const portrait = document.querySelector('.portrait__frame');
+      const stage    = document.querySelector('.silk-stage canvas');
+      if (portrait && stage) {
+        portrait.addEventListener('mouseenter', () => gsap.to(stage, { opacity: 1.0, duration: 0.8 }));
+        portrait.addEventListener('mouseleave', () => gsap.to(stage, { opacity: 0.95, duration: 0.8 }));
+      }
+    }
   </script>
 
 </body>
