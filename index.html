@@ -1,0 +1,940 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#FAF9F6" />
+
+  <title>Laís Nayélli — A Ciência por trás da sua Essência · Estética Avançada &amp; Cosmetologia</title>
+  <meta name="description" content="Curadoria sensorial da pele por Laís Nayélli — Esteticista e Cosmetóloga. Microagulhamento, revitalização, tratamento de hipercromias e protocolos exclusivos de alta cosmetologia." />
+  <meta name="author" content="Laís Nayélli" />
+
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="Laís Nayélli — A Ciência por trás da sua Essência" />
+  <meta property="og:description" content="Estética avançada, cosmetologia de elite e protocolos sob medida." />
+  <meta property="og:locale" content="pt_BR" />
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'><rect width='64' height='64' fill='%23FAF9F6'/><text x='50%25' y='58%25' font-family='Georgia, serif' font-size='38' font-style='italic' text-anchor='middle' fill='%23C5A059'>L</text></svg>" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ============================================================
+       :: Laís Nayélli — Atelier Digital
+       :: Session 01 — Hero (O Despertar da Beleza)
+       ============================================================ */
+
+    :root {
+      /* Paleta — Luxo Etéreo */
+      --color-bg: #FAF9F6;
+      --color-bg-warm: #FDFBF7;
+      --color-bg-deep: #F2EFE8;
+      --color-text: #2B241E;
+      --color-text-soft: #5B4F45;
+      --color-text-mute: #9A8E82;
+      --color-gold: #C5A059;
+      --color-gold-light: #E6CFA0;
+      --color-gold-deep: #8C6E36;
+      --color-veil: rgba(250, 249, 246, 0.92);
+
+      /* Tipografia */
+      --font-serif: "Cormorant Garamond", "Times New Roman", serif;
+      --font-sans:  "Jost", "Inter", "Helvetica Neue", sans-serif;
+
+      /* Métrica */
+      --gutter: clamp(1.5rem, 4vw, 4rem);
+      --maxw:   1480px;
+      --ease-silk: cubic-bezier(0.16, 1, 0.3, 1);
+      --ease-soft: cubic-bezier(0.65, 0.05, 0.36, 1);
+    }
+
+    *,
+    *::before,
+    *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body { width: 100%; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-sans);
+      font-weight: 300;
+      color: var(--color-text);
+      background: var(--color-bg);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+      overflow-x: hidden;
+      letter-spacing: 0.01em;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    ::selection { background: var(--color-gold); color: var(--color-bg); }
+
+    a { color: inherit; text-decoration: none; }
+    img { display: block; max-width: 100%; }
+
+    /* ----------------------------------------------------------
+       :: Background — Seda Translúcida & Refração Dourada
+       ---------------------------------------------------------- */
+    .silk-stage {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(120% 80% at 70% 10%, rgba(230, 207, 160, 0.18), transparent 60%),
+        radial-gradient(90% 70% at 10% 90%, rgba(197, 160, 89, 0.12), transparent 60%),
+        var(--color-bg);
+    }
+    .silk-stage canvas {
+      display: block;
+      width: 100%;
+      height: 100%;
+      mix-blend-mode: multiply;
+      opacity: 0.95;
+    }
+
+    /* Película de grão — toque analógico de luxo */
+    .grain {
+      position: fixed;
+      inset: -50%;
+      z-index: 2;
+      pointer-events: none;
+      opacity: 0.045;
+      background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='220' height='220'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 0.16 0 0 0 0 0.14 0 0 0 0 0.11 0 0 0 0.6 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+      mix-blend-mode: multiply;
+      animation: grain 7s steps(6) infinite;
+    }
+    @keyframes grain {
+      0%   { transform: translate(0, 0); }
+      20%  { transform: translate(-2%, 1%); }
+      40%  { transform: translate(1%, -2%); }
+      60%  { transform: translate(-1%, 2%); }
+      80%  { transform: translate(2%, -1%); }
+      100% { transform: translate(0, 0); }
+    }
+
+    /* ----------------------------------------------------------
+       :: Curtain — Véu de abertura
+       ---------------------------------------------------------- */
+    .curtain {
+      position: fixed;
+      inset: 0;
+      z-index: 100;
+      background: var(--color-bg-warm);
+      display: grid;
+      place-items: center;
+      pointer-events: none;
+    }
+    .curtain__mark {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 400;
+      color: var(--color-gold);
+      letter-spacing: 0.18em;
+      font-size: clamp(0.85rem, 1.2vw, 1.05rem);
+      text-transform: uppercase;
+      opacity: 0;
+    }
+    .curtain__mark::before,
+    .curtain__mark::after {
+      content: "";
+      display: inline-block;
+      width: 0;
+      height: 1px;
+      background: var(--color-gold);
+      vertical-align: middle;
+      margin: 0 1.2em;
+      transition: width 1s var(--ease-silk);
+    }
+
+    /* ----------------------------------------------------------
+       :: Page Shell
+       ---------------------------------------------------------- */
+    .page {
+      position: relative;
+      z-index: 3;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* ----------------------------------------------------------
+       :: Nav
+       ---------------------------------------------------------- */
+    .nav {
+      position: relative;
+      z-index: 5;
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+      align-items: center;
+      padding: clamp(1.4rem, 2.2vw, 2rem) var(--gutter);
+      gap: 2rem;
+    }
+    .nav__brand {
+      display: flex;
+      align-items: center;
+      gap: 0.85rem;
+      opacity: 0;
+    }
+    .nav__monogram {
+      display: inline-grid;
+      place-items: center;
+      width: 38px;
+      height: 38px;
+      border: 1px solid var(--color-gold);
+      border-radius: 50%;
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 500;
+      font-size: 1.05rem;
+      color: var(--color-gold);
+      letter-spacing: 0;
+    }
+    .nav__name {
+      font-family: var(--font-serif);
+      font-size: 1.05rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--color-text);
+    }
+    .nav__name em {
+      font-style: italic;
+      color: var(--color-gold);
+      font-weight: 500;
+    }
+
+    .nav__menu {
+      display: flex;
+      gap: clamp(1.4rem, 3vw, 2.6rem);
+      justify-content: center;
+      opacity: 0;
+    }
+    .nav__menu a {
+      position: relative;
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      color: var(--color-text-soft);
+      padding-bottom: 4px;
+      transition: color 0.5s var(--ease-silk);
+    }
+    .nav__menu a::after {
+      content: "";
+      position: absolute;
+      left: 0; bottom: 0;
+      width: 100%;
+      height: 1px;
+      background: var(--color-gold);
+      transform: scaleX(0);
+      transform-origin: left center;
+      transition: transform 0.6s var(--ease-silk);
+    }
+    .nav__menu a:hover { color: var(--color-text); }
+    .nav__menu a:hover::after { transform: scaleX(1); }
+
+    .nav__aside {
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      gap: 1.2rem;
+      opacity: 0;
+    }
+    .nav__contact {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.22em;
+      color: var(--color-text-soft);
+    }
+    .nav__contact::before {
+      content: "";
+      display: inline-block;
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--color-gold);
+      box-shadow: 0 0 0 4px rgba(197, 160, 89, 0.15);
+      vertical-align: middle;
+      margin-right: 0.7em;
+      animation: pulse 3.2s ease-in-out infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 0 4px rgba(197, 160, 89, 0.15); }
+      50%      { box-shadow: 0 0 0 8px rgba(197, 160, 89, 0.0);  }
+    }
+
+    /* ----------------------------------------------------------
+       :: Hero
+       ---------------------------------------------------------- */
+    .hero {
+      position: relative;
+      flex: 1;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      padding: clamp(2rem, 6vw, 5rem) var(--gutter) clamp(2rem, 4vw, 3.5rem);
+      max-width: var(--maxw);
+      width: 100%;
+      margin: 0 auto;
+    }
+
+    .hero__eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-size: 0.74rem;
+      text-transform: uppercase;
+      letter-spacing: 0.32em;
+      color: var(--color-text-soft);
+      opacity: 0;
+    }
+    .hero__eyebrow .dash {
+      width: clamp(36px, 6vw, 64px);
+      height: 1px;
+      background: var(--color-gold);
+      display: inline-block;
+    }
+    .hero__eyebrow em {
+      font-style: italic;
+      font-family: var(--font-serif);
+      color: var(--color-gold);
+      text-transform: none;
+      letter-spacing: 0.06em;
+      font-size: 0.95rem;
+    }
+
+    .hero__title-wrap {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: clamp(2rem, 5vw, 4rem) 0;
+    }
+
+    .hero__title {
+      font-family: var(--font-serif);
+      font-weight: 400;
+      font-size: clamp(3rem, 10.5vw, 11rem);
+      line-height: 0.94;
+      letter-spacing: -0.022em;
+      color: var(--color-text);
+    }
+    .hero__title .line {
+      display: block;
+      overflow: hidden;
+      padding: 0.06em 0;
+    }
+    .hero__title .line > span,
+    .hero__title .line > em {
+      display: inline-block;
+      transform: translateY(110%);
+      will-change: transform;
+    }
+    .hero__title em {
+      font-style: italic;
+      font-weight: 500;
+      color: var(--color-gold);
+      position: relative;
+      padding: 0 0.04em;
+    }
+    .hero__title .small {
+      font-family: var(--font-sans);
+      font-style: normal;
+      font-weight: 200;
+      font-size: 0.32em;
+      letter-spacing: 0.42em;
+      text-transform: uppercase;
+      color: var(--color-text-soft);
+      vertical-align: 0.85em;
+      padding: 0 0.6em;
+    }
+    .hero__title .ampersand {
+      font-style: italic;
+      color: var(--color-gold);
+      font-weight: 400;
+      padding: 0 0.05em;
+    }
+
+    /* Aside numerais & metadata — refinamento editorial */
+    .hero__meta {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      align-items: end;
+      gap: 2rem;
+      padding-top: clamp(1rem, 3vw, 2rem);
+      border-top: 1px solid rgba(43, 36, 30, 0.08);
+    }
+
+    .hero__signature {
+      grid-column: 1 / span 4;
+      font-size: 0.78rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--color-text-soft);
+      opacity: 0;
+    }
+    .hero__signature strong {
+      display: block;
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 500;
+      text-transform: none;
+      letter-spacing: 0.02em;
+      color: var(--color-text);
+      font-size: 1.15rem;
+      margin-top: 0.4rem;
+    }
+    .hero__signature strong::after {
+      content: " ·";
+      color: var(--color-gold);
+    }
+
+    .hero__subtitle {
+      grid-column: 5 / span 4;
+      max-width: 38ch;
+      font-size: clamp(0.94rem, 1.05vw, 1.05rem);
+      line-height: 1.65;
+      color: var(--color-text-soft);
+      opacity: 0;
+    }
+    .hero__subtitle em {
+      font-family: var(--font-serif);
+      font-style: italic;
+      color: var(--color-text);
+      font-size: 1.08em;
+    }
+
+    .hero__cta-col {
+      grid-column: 9 / span 4;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: 1.5rem;
+      opacity: 0;
+    }
+
+    /* CTA — borda dourada + preenchimento líquido */
+    .cta {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.9rem;
+      padding: 1.05rem 2.2rem;
+      border: 1px solid var(--color-gold);
+      border-radius: 6px;
+      font-family: var(--font-sans);
+      font-weight: 300;
+      font-size: 0.86rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--color-text);
+      overflow: hidden;
+      isolation: isolate;
+      cursor: pointer;
+      transition: color 0.6s var(--ease-silk), border-color 0.6s var(--ease-silk), box-shadow 0.6s var(--ease-silk);
+    }
+    .cta__liquid {
+      position: absolute;
+      inset: auto 0 0 0;
+      height: 0%;
+      background: linear-gradient(180deg, var(--color-gold-light) 0%, var(--color-gold) 60%, var(--color-gold-deep) 100%);
+      z-index: -1;
+      transition: height 0.7s var(--ease-silk);
+      border-radius: 40% 40% 0 0 / 14% 14% 0 0;
+    }
+    .cta__label { position: relative; z-index: 1; }
+    .cta__arrow {
+      position: relative;
+      z-index: 1;
+      display: inline-block;
+      width: 28px;
+      height: 1px;
+      background: currentColor;
+      transition: width 0.5s var(--ease-silk);
+    }
+    .cta__arrow::after {
+      content: "";
+      position: absolute;
+      right: 0; top: 50%;
+      width: 8px; height: 8px;
+      border-right: 1px solid currentColor;
+      border-top: 1px solid currentColor;
+      transform: translateY(-50%) rotate(45deg);
+    }
+    .cta:hover {
+      color: var(--color-bg-warm);
+      border-color: var(--color-gold-deep);
+      box-shadow: 0 18px 40px -20px rgba(140, 110, 54, 0.55);
+    }
+    .cta:hover .cta__liquid { height: 130%; border-radius: 0; }
+    .cta:hover .cta__arrow  { width: 38px; }
+
+    .hero__whisper {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-weight: 400;
+      font-size: 0.95rem;
+      color: var(--color-text-mute);
+      letter-spacing: 0.01em;
+    }
+    .hero__whisper::before {
+      content: "—";
+      color: var(--color-gold);
+      margin-right: 0.5em;
+    }
+
+    /* ----------------------------------------------------------
+       :: Footer micro — counter + scroll cue
+       ---------------------------------------------------------- */
+    .hero__rail {
+      position: fixed;
+      left: var(--gutter);
+      bottom: clamp(1.4rem, 3vw, 2.2rem);
+      z-index: 5;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      font-size: 0.7rem;
+      letter-spacing: 0.3em;
+      text-transform: uppercase;
+      color: var(--color-text-mute);
+      opacity: 0;
+    }
+    .hero__rail .index {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 0.95rem;
+      letter-spacing: 0.04em;
+      color: var(--color-gold);
+      text-transform: none;
+    }
+    .hero__rail .divider {
+      width: 60px; height: 1px;
+      background: linear-gradient(90deg, var(--color-gold) 0%, transparent 100%);
+    }
+
+    .scroll-cue {
+      position: fixed;
+      right: var(--gutter);
+      bottom: clamp(1.4rem, 3vw, 2.2rem);
+      z-index: 5;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.66rem;
+      letter-spacing: 0.34em;
+      text-transform: uppercase;
+      color: var(--color-text-mute);
+      writing-mode: vertical-rl;
+      opacity: 0;
+    }
+    .scroll-cue__line {
+      writing-mode: horizontal-tb;
+      position: relative;
+      width: 1px;
+      height: 72px;
+      background: rgba(43, 36, 30, 0.12);
+      overflow: hidden;
+    }
+    .scroll-cue__line::after {
+      content: "";
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%;
+      height: 28px;
+      background: linear-gradient(180deg, transparent, var(--color-gold));
+      animation: drip 2.6s var(--ease-silk) infinite;
+    }
+    @keyframes drip {
+      0%   { transform: translateY(-100%); }
+      100% { transform: translateY(280%);  }
+    }
+
+    /* ----------------------------------------------------------
+       :: Fio de seda — vertical (o "fio condutor" da página)
+       ---------------------------------------------------------- */
+    .thread {
+      position: fixed;
+      left: 50%;
+      top: 0;
+      width: 1px;
+      height: 100vh;
+      transform: translateX(-50%);
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0;
+    }
+    .thread::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(180deg,
+        transparent 0%,
+        rgba(197, 160, 89, 0.0) 10%,
+        rgba(197, 160, 89, 0.22) 50%,
+        rgba(197, 160, 89, 0.0) 90%,
+        transparent 100%);
+    }
+
+    /* ----------------------------------------------------------
+       :: Responsivo
+       ---------------------------------------------------------- */
+    @media (max-width: 880px) {
+      .nav { grid-template-columns: 1fr auto; gap: 1rem; }
+      .nav__menu { display: none; }
+      .hero__meta { grid-template-columns: 1fr; gap: 1.6rem; }
+      .hero__signature, .hero__subtitle, .hero__cta-col { grid-column: 1 / -1; }
+      .hero__cta-col { align-items: flex-start; }
+      .hero__title { font-size: clamp(2.8rem, 14vw, 5.5rem); }
+      .scroll-cue { display: none; }
+      .hero__rail { display: none; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Película de grão -->
+  <div class="grain" aria-hidden="true"></div>
+
+  <!-- Palco da seda dourada -->
+  <div class="silk-stage" aria-hidden="true">
+    <canvas id="silk"></canvas>
+  </div>
+
+  <!-- Fio condutor vertical -->
+  <div class="thread" aria-hidden="true"></div>
+
+  <!-- Véu de abertura -->
+  <div class="curtain" aria-hidden="true">
+    <span class="curtain__mark">Laís Nayélli · Atelier de Estética</span>
+  </div>
+
+  <main class="page">
+
+    <header class="nav">
+      <div class="nav__brand">
+        <span class="nav__monogram" aria-hidden="true">L<sup style="font-size:0.6em;color:inherit;">n</sup></span>
+        <span class="nav__name">Laís <em>Nayélli</em></span>
+      </div>
+
+      <nav class="nav__menu" aria-label="Navegação principal">
+        <a href="#filosofia">Filosofia</a>
+        <a href="#protocolos">Protocolos</a>
+        <a href="#galeria">Resultados</a>
+        <a href="#contato">Contato</a>
+      </nav>
+
+      <div class="nav__aside">
+        <span class="nav__contact">Agenda Aberta</span>
+      </div>
+    </header>
+
+    <section class="hero" id="hero" aria-label="Hero — A Ciência por trás da sua Essência">
+
+      <div class="hero__eyebrow">
+        <span class="dash" aria-hidden="true"></span>
+        <span>Estética Avançada</span>
+        <em>&amp;</em>
+        <span>Cosmetologia de Elite</span>
+      </div>
+
+      <div class="hero__title-wrap">
+        <h1 class="hero__title" aria-label="A Ciência por trás da sua Essência">
+          <span class="line"><span>A&nbsp;</span><em>Ciência</em></span>
+          <span class="line"><span class="small">por&nbsp;trás&nbsp;da</span></span>
+          <span class="line"><span>sua&nbsp;</span><em>Essência</em><span class="ampersand">.</span></span>
+        </h1>
+      </div>
+
+      <div class="hero__meta">
+        <div class="hero__signature">
+          Atelier de Pele
+          <strong>Laís Nayélli</strong>
+          Esteticista &amp; Cosmetóloga
+        </div>
+
+        <p class="hero__subtitle">
+          A <em>curadoria sensorial</em> da sua pele — protocolos exclusivos em microagulhamento,
+          revitalização, clareamento e tratamento de linhas de expressão. Um ritual onde
+          ciência e delicadeza se tornam uma só linguagem.
+        </p>
+
+        <div class="hero__cta-col">
+          <a class="cta" href="#contato" aria-label="Experiencie a Transformação">
+            <span class="cta__liquid" aria-hidden="true"></span>
+            <span class="cta__label">Experiencie a Transformação</span>
+            <span class="cta__arrow" aria-hidden="true"></span>
+          </a>
+          <span class="hero__whisper">consulta sob agendamento</span>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- Trilhas fixas — index + scroll cue -->
+    <div class="hero__rail" aria-hidden="true">
+      <span class="index">01</span>
+      <span class="divider"></span>
+      <span>O Despertar da Beleza</span>
+    </div>
+
+    <div class="scroll-cue" aria-hidden="true">
+      <span>Role para descobrir</span>
+      <span class="scroll-cue__line"></span>
+    </div>
+
+  </main>
+
+  <!-- Bibliotecas -->
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/lenis@1.1.13/dist/lenis.min.js"></script>
+
+  <script>
+    /* ============================================================
+       :: 1) Lenis — Smooth scroll impecável
+       ============================================================ */
+    const lenis = new Lenis({
+      duration: 1.4,
+      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      smoothWheel: true,
+      smoothTouch: false,
+      wheelMultiplier: 0.9,
+    });
+
+    gsap.registerPlugin(ScrollTrigger);
+    lenis.on('scroll', ScrollTrigger.update);
+    gsap.ticker.add((time) => lenis.raf(time * 1000));
+    gsap.ticker.lagSmoothing(0);
+
+    /* ============================================================
+       :: 2) Seda Translúcida — WebGL caustics dourados
+       ============================================================ */
+    (function initSilk() {
+      const canvas = document.getElementById('silk');
+      const gl = canvas.getContext('webgl', { antialias: true, premultipliedAlpha: false });
+      if (!gl) {
+        // Fallback gracioso — gradientes CSS já estão no .silk-stage
+        canvas.style.display = 'none';
+        return;
+      }
+
+      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+      const vert = `
+        attribute vec2 a_position;
+        void main() { gl_Position = vec4(a_position, 0.0, 1.0); }
+      `;
+
+      const frag = `
+        precision highp float;
+        uniform vec2  u_resolution;
+        uniform float u_time;
+        uniform vec2  u_mouse;
+        uniform float u_scroll;
+
+        // Hash & value noise
+        float hash(vec2 p){ return fract(sin(dot(p,vec2(127.1,311.7)))*43758.5453123); }
+        float noise(vec2 p){
+          vec2 i=floor(p), f=fract(p);
+          vec2 u=f*f*(3.0-2.0*f);
+          return mix(mix(hash(i),hash(i+vec2(1.,0.)),u.x),
+                     mix(hash(i+vec2(0.,1.)),hash(i+vec2(1.,1.)),u.x), u.y);
+        }
+        float fbm(vec2 p){
+          float s=0.0, a=0.5;
+          mat2 R = mat2(0.8,-0.6,0.6,0.8);
+          for(int i=0;i<6;i++){ s+=a*noise(p); p=R*p*2.02; a*=0.5; }
+          return s;
+        }
+
+        void main(){
+          vec2 uv = gl_FragCoord.xy / u_resolution.xy;
+          vec2 p  = uv;
+          p.x *= u_resolution.x / u_resolution.y;
+
+          float t = u_time * 0.035 + u_scroll * 0.15;
+
+          // Domain warping — simula a ondulação orgânica da seda
+          vec2 q = vec2(
+            fbm(p + vec2(0.0, t)),
+            fbm(p + vec2(5.2, 1.3) - t * 0.6)
+          );
+          vec2 r = vec2(
+            fbm(p + 3.4 * q + vec2(1.7, 9.2) + t * 0.5),
+            fbm(p + 3.4 * q + vec2(8.3, 2.8) - t * 0.4)
+          );
+          float n = fbm(p + 3.0 * r);
+
+          // Influência sutil do cursor (refração de luz)
+          vec2 m = u_mouse / u_resolution.xy;
+          float md = 1.0 - smoothstep(0.0, 0.55, distance(uv, m));
+          n += md * 0.06;
+
+          // Caustic peaks — onde a luz dourada se concentra
+          float caustic = pow(smoothstep(0.35, 0.95, n), 1.6);
+          float veins   = pow(1.0 - abs(0.5 - r.x), 5.0) * 0.55;
+
+          // Paleta — cremoso, dourado claro, dourado profundo
+          vec3 cream     = vec3(0.980, 0.973, 0.961); // #FAF9F6
+          vec3 goldSoft  = vec3(0.929, 0.871, 0.706); // #EDDEB4
+          vec3 gold      = vec3(0.772, 0.628, 0.349); // #C5A059
+          vec3 goldDeep  = vec3(0.549, 0.431, 0.212); // #8C6E36
+
+          vec3 col = cream;
+          col = mix(col, goldSoft, caustic * 0.55);
+          col = mix(col, gold,     pow(caustic, 2.4) * 0.28);
+          col = mix(col, goldDeep, veins * 0.06);
+
+          // Vinheta cinematográfica
+          float vig = smoothstep(1.5, 0.25, length(uv - 0.5));
+          col *= mix(0.92, 1.0, vig);
+
+          // Pequeno desbotar nos cantos superiores para respiração
+          col = mix(col, cream, smoothstep(0.85, 1.0, 1.0 - uv.y) * 0.25);
+
+          gl_FragColor = vec4(col, 1.0);
+        }
+      `;
+
+      function compile(type, src){
+        const sh = gl.createShader(type);
+        gl.shaderSource(sh, src);
+        gl.compileShader(sh);
+        if(!gl.getShaderParameter(sh, gl.COMPILE_STATUS)){
+          console.warn(gl.getShaderInfoLog(sh));
+        }
+        return sh;
+      }
+
+      const prog = gl.createProgram();
+      gl.attachShader(prog, compile(gl.VERTEX_SHADER, vert));
+      gl.attachShader(prog, compile(gl.FRAGMENT_SHADER, frag));
+      gl.linkProgram(prog);
+      gl.useProgram(prog);
+
+      // Full-screen quad
+      const buf = gl.createBuffer();
+      gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+      gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
+        -1,-1,  1,-1,  -1, 1,
+        -1, 1,  1,-1,   1, 1
+      ]), gl.STATIC_DRAW);
+      const loc = gl.getAttribLocation(prog, 'a_position');
+      gl.enableVertexAttribArray(loc);
+      gl.vertexAttribPointer(loc, 2, gl.FLOAT, false, 0, 0);
+
+      const uRes    = gl.getUniformLocation(prog, 'u_resolution');
+      const uTime   = gl.getUniformLocation(prog, 'u_time');
+      const uMouse  = gl.getUniformLocation(prog, 'u_mouse');
+      const uScroll = gl.getUniformLocation(prog, 'u_scroll');
+
+      const mouse = { x: 0, y: 0, tx: 0, ty: 0 };
+      let scrollY = 0;
+
+      function resize(){
+        const w = canvas.clientWidth  = window.innerWidth;
+        const h = canvas.clientHeight = window.innerHeight;
+        canvas.width  = Math.floor(w * dpr);
+        canvas.height = Math.floor(h * dpr);
+        gl.viewport(0, 0, canvas.width, canvas.height);
+        mouse.tx = mouse.x = canvas.width  * 0.5;
+        mouse.ty = mouse.y = canvas.height * 0.5;
+      }
+      window.addEventListener('resize', resize, { passive: true });
+      resize();
+
+      window.addEventListener('pointermove', (e) => {
+        mouse.tx = e.clientX * dpr;
+        mouse.ty = (window.innerHeight - e.clientY) * dpr;
+      }, { passive: true });
+
+      lenis.on('scroll', ({ scroll }) => { scrollY = scroll; });
+
+      const start = performance.now();
+      function render(){
+        const time = (performance.now() - start) * 0.001;
+        mouse.x += (mouse.tx - mouse.x) * 0.04;
+        mouse.y += (mouse.ty - mouse.y) * 0.04;
+
+        gl.uniform2f(uRes, canvas.width, canvas.height);
+        gl.uniform1f(uTime, time);
+        gl.uniform2f(uMouse, mouse.x, mouse.y);
+        gl.uniform1f(uScroll, scrollY * 0.001);
+
+        gl.drawArrays(gl.TRIANGLES, 0, 6);
+        requestAnimationFrame(render);
+      }
+      render();
+    })();
+
+    /* ============================================================
+       :: 3) Curtain Reveal + Hero entrance
+       ============================================================ */
+    window.addEventListener('load', () => {
+      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
+
+      // Véu — marca aparece, traços se estendem, véu se dissolve
+      tl.set('.curtain__mark', { opacity: 0 })
+        .to('.curtain__mark', { opacity: 1, duration: 0.9, ease: 'power2.out' }, 0.2)
+        .to('.curtain__mark', { letterSpacing: '0.30em', duration: 1.4, ease: 'power2.inOut' }, 0.4)
+        .to('.curtain', {
+          opacity: 0,
+          duration: 1.4,
+          ease: 'power2.inOut',
+          pointerEvents: 'none',
+          onComplete: () => { document.querySelector('.curtain').style.display = 'none'; }
+        }, 1.4);
+
+      // Nav
+      tl.to('.nav__brand', { opacity: 1, duration: 1.0 }, 1.6)
+        .to('.nav__menu',  { opacity: 1, duration: 1.0 }, 1.75)
+        .to('.nav__aside', { opacity: 1, duration: 1.0 }, 1.85);
+
+      // Eyebrow
+      tl.to('.hero__eyebrow', { opacity: 1, duration: 1.0 }, 1.9);
+
+      // Título — linhas com fade-up sedoso (masked)
+      tl.to('.hero__title .line > span, .hero__title .line > em', {
+        y: '0%',
+        duration: 1.6,
+        stagger: 0.12,
+        ease: 'expo.out'
+      }, 1.95);
+
+      // Meta
+      tl.to('.hero__signature', { opacity: 1, duration: 1.1 }, 2.6)
+        .to('.hero__subtitle',  { opacity: 1, duration: 1.1 }, 2.75)
+        .to('.hero__cta-col',   { opacity: 1, duration: 1.1 }, 2.9);
+
+      // Rails + fio
+      tl.to('.thread',     { opacity: 1, duration: 1.4 }, 2.4)
+        .to('.hero__rail', { opacity: 1, duration: 1.0 }, 3.0)
+        .to('.scroll-cue', { opacity: 1, duration: 1.0 }, 3.1);
+    });
+
+    /* ============================================================
+       :: 4) Parallax sutil do título no movimento do mouse
+       ============================================================ */
+    const title = document.querySelector('.hero__title');
+    const eyebrow = document.querySelector('.hero__eyebrow');
+    document.addEventListener('pointermove', (e) => {
+      const x = (e.clientX / window.innerWidth  - 0.5);
+      const y = (e.clientY / window.innerHeight - 0.5);
+      gsap.to(title,   { x: x * -14, y: y * -8,  duration: 1.4, ease: 'power3.out' });
+      gsap.to(eyebrow, { x: x *  -6, y: y * -3,  duration: 1.6, ease: 'power3.out' });
+    });
+  </script>
+
+</body>
+</html>
