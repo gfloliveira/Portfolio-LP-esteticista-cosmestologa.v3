@@ -463,9 +463,9 @@
     .hero__title {
       font-family: var(--font-serif);
       font-weight: 400;
-      /* Escala por menor entre largura e altura — evita gigantismo
+      /* Escala pelo menor entre largura e altura — evita gigantismo
          em monitores ultra-wide e mantém respiração em telas baixas */
-      font-size: clamp(2.6rem, min(8vw, 13vh), 8rem);
+      font-size: clamp(2.4rem, min(7vw, 12vh), 7.5rem);
       line-height: 0.96;
       letter-spacing: -0.022em;
       color: var(--color-text);
@@ -1879,7 +1879,7 @@
       .hero__signature { grid-column: 1 / span 5; }
       .hero__subtitle  { grid-column: 6 / span 7; }
       .hero__cta-col   { grid-column: 1 / -1; flex-direction: row; align-items: center; justify-content: space-between; padding-top: 1rem; border-top: 1px solid rgba(43, 36, 30, 0.08); }
-      .hero__title { font-size: clamp(3.6rem, 11vw, 8rem); }
+      .hero__title { font-size: clamp(2.8rem, min(9vw, 13vh), 6rem); }
     }
 
     /* ----------------------------------------------------------
@@ -2005,9 +2005,15 @@
       .hero__rail, .scroll-cue { display: none; }
     }
 
-    /* Telas grandes — respiração extra */
+    /* Telas grandes — respiração extra, mas sempre limitando por altura
+       para não cortar título em monitores ultra-wide */
     @media (min-width: 1600px) {
-      .hero__title { font-size: clamp(8rem, 9.5vw, 12rem); }
+      .hero__title { font-size: clamp(4rem, min(7.5vw, 14vh), 8.5rem); }
+    }
+
+    /* Telas com altura curta — prioriza vh para nunca vazar viewport */
+    @media (max-height: 820px) and (min-width: 1024px) {
+      .hero__title { font-size: clamp(2.6rem, min(7vw, 12.5vh), 7rem); }
     }
 
     @media (hover: none) and (pointer: coarse) {
