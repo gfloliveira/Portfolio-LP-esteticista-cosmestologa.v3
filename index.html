@@ -457,14 +457,16 @@
       display: flex;
       flex-direction: column;
       justify-content: center;
-      padding: clamp(2rem, 5vw, 4rem) 0;
+      padding: clamp(1rem, 2.5vw, 2.5rem) 0;
     }
 
     .hero__title {
       font-family: var(--font-serif);
       font-weight: 400;
-      font-size: clamp(3rem, 10.5vw, 11rem);
-      line-height: 0.94;
+      /* Escala por menor entre largura e altura — evita gigantismo
+         em monitores ultra-wide e mantém respiração em telas baixas */
+      font-size: clamp(2.6rem, min(8vw, 13vh), 8rem);
+      line-height: 0.96;
       letter-spacing: -0.022em;
       color: var(--color-text);
     }
