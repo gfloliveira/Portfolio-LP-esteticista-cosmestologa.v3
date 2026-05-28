@@ -1169,13 +1169,19 @@
       font-weight: 500;
     }
 
+    .protocols__head-right {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-end;
+      gap: clamp(1.6rem, 3vw, 2.4rem);
+      align-self: end;
+    }
     .protocols__intro {
       font-size: clamp(1rem, 1.05vw, 1.05rem);
       line-height: 1.75;
       color: var(--color-text-soft);
       max-width: 44ch;
-      align-self: end;
-      justify-self: end;
+      text-align: right;
     }
     .protocols__intro em {
       font-family: var(--font-serif);
@@ -1390,7 +1396,8 @@
     /* Responsivo Sessão 03 */
     @media (max-width: 1024px) {
       .protocols__head { grid-template-columns: 1fr; gap: 1.5rem; align-items: start; }
-      .protocols__intro { justify-self: start; }
+      .protocols__head-right { align-items: flex-start; flex-direction: row; flex-wrap: wrap; gap: 1.5rem; }
+      .protocols__intro { text-align: left; }
       .protocols__grid { grid-template-columns: repeat(2, 1fr); }
     }
     @media (max-width: 720px) {
@@ -1871,6 +1878,175 @@
       .compare { aspect-ratio: 3 / 4; }
     }
 
+    /* ============================================================
+       :: Moodboard cinético — fotos editoriais que respiram com a névoa
+       ============================================================ */
+    .moodboard {
+      position: relative;
+      display: block;
+      isolation: isolate;
+    }
+    .moodboard--hero {
+      position: absolute;
+      top: 50%;
+      right: calc(var(--gutter) + var(--safe-right));
+      transform: translateY(-44%);
+      width: clamp(200px, 19vw, 300px);
+      z-index: 4;
+      opacity: 0;
+      pointer-events: auto;
+    }
+    .moodboard--protocols {
+      width: clamp(220px, 22vw, 320px);
+      justify-self: end;
+      align-self: end;
+      margin-bottom: 0.4rem;
+    }
+
+    .moodboard__frame {
+      position: relative;
+      aspect-ratio: 4 / 5;
+      overflow: hidden;
+      background: linear-gradient(135deg, var(--color-bg-warm) 0%, #ece4d2 100%);
+      border: 1px solid rgba(197, 160, 89, 0.22);
+      box-shadow:
+        0 40px 80px -40px rgba(43, 36, 30, 0.32),
+        0 1px 0 rgba(197, 160, 89, 0.18) inset;
+    }
+    .moodboard__img {
+      position: absolute;
+      inset: -4%;
+      width: 108%;
+      height: 108%;
+      object-fit: cover;
+      object-position: center 30%;
+      opacity: 0;
+      transform: scale(1);
+      filter: saturate(0.94) contrast(1.02);
+      transition:
+        opacity 1.6s cubic-bezier(0.5, 0, 0.2, 1),
+        filter 0.7s var(--ease-silk);
+      will-change: opacity, transform;
+    }
+    .moodboard__img.is-active {
+      opacity: 1;
+      animation: moodboardKen 7.5s ease-out forwards;
+    }
+    @keyframes moodboardKen {
+      from { transform: scale(1); }
+      to   { transform: scale(1.07); }
+    }
+
+    .moodboard__veil {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background:
+        radial-gradient(140% 100% at 50% 0%, transparent 50%, rgba(43, 36, 30, 0.18) 100%),
+        linear-gradient(180deg, rgba(250, 249, 246, 0) 60%, rgba(43, 36, 30, 0.10) 100%);
+      mix-blend-mode: multiply;
+      z-index: 2;
+    }
+    .moodboard__glow {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.22), transparent 65%);
+      opacity: 0;
+      transition: opacity 0.7s var(--ease-silk);
+      z-index: 3;
+    }
+
+    .moodboard__corner {
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      pointer-events: none;
+      z-index: 4;
+    }
+    .moodboard__corner--tl { top: 0;    left: 0;     border-top: 1px solid var(--color-gold); border-left:  1px solid var(--color-gold); transform: translate(-6px, -6px); }
+    .moodboard__corner--tr { top: 0;    right: 0;    border-top: 1px solid var(--color-gold); border-right: 1px solid var(--color-gold); transform: translate( 6px, -6px); }
+    .moodboard__corner--bl { bottom: 0; left: 0;     border-bottom: 1px solid var(--color-gold); border-left:  1px solid var(--color-gold); transform: translate(-6px,  6px); }
+    .moodboard__corner--br { bottom: 0; right: 0;    border-bottom: 1px solid var(--color-gold); border-right: 1px solid var(--color-gold); transform: translate( 6px,  6px); }
+
+    .moodboard__meta {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      margin-top: 0.9rem;
+      padding-top: 0.7rem;
+      border-top: 1px solid rgba(197, 160, 89, 0.32);
+      font-size: 0.62rem;
+      letter-spacing: 0.28em;
+      text-transform: uppercase;
+      color: var(--color-text-mute);
+    }
+    .moodboard__counter {
+      font-family: var(--font-serif);
+      font-style: italic;
+      font-size: 0.92rem;
+      letter-spacing: 0.04em;
+      text-transform: none;
+      color: var(--color-gold);
+    }
+    .moodboard__counter strong {
+      font-weight: 400;
+      color: var(--color-text);
+      margin-right: 0.5em;
+    }
+
+    /* Progress thread — fio que pulsa indicando próxima troca */
+    .moodboard__thread {
+      position: absolute;
+      left: 0; right: 0; bottom: 0;
+      height: 1px;
+      background: rgba(197, 160, 89, 0.18);
+      overflow: hidden;
+      z-index: 4;
+    }
+    .moodboard__thread::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent, var(--color-gold), transparent);
+      transform: translateX(-100%);
+      will-change: transform;
+    }
+    .moodboard.is-cycling .moodboard__thread::after {
+      animation: moodboardThread 5.5s linear infinite;
+    }
+    @keyframes moodboardThread {
+      from { transform: translateX(-100%); }
+      to   { transform: translateX(100%); }
+    }
+
+    /* Respiração entre fotos — névoa toma conta */
+    .moodboard.is-breathing .moodboard__img { opacity: 0 !important; animation: none !important; }
+    .moodboard.is-breathing .moodboard__glow { opacity: 1; }
+    .moodboard.is-breathing .moodboard__frame { background: linear-gradient(135deg, rgba(212, 175, 55, 0.10), rgba(250, 249, 246, 0.4)); }
+
+    /* Hover — pele do moodboard se torna translúcida, brilho aumenta */
+    @media (hover: hover) {
+      .moodboard:hover .moodboard__img.is-active { filter: saturate(0.72) brightness(1.06); }
+      .moodboard:hover .moodboard__glow { opacity: 0.7; }
+      .moodboard:hover .moodboard__veil { opacity: 0.5; }
+    }
+
+    /* ---- Filosofia: retrato vira moodboard cíclico (apenas a engine) ---- */
+    .portrait[data-moodboard] .portrait__img-wrap img {
+      transition: opacity 1.6s cubic-bezier(0.5, 0, 0.2, 1);
+    }
+    .portrait[data-moodboard] .portrait__img-wrap img:not(.is-active) { opacity: 0; }
+    .portrait[data-moodboard].is-breathing .portrait__img-wrap img { opacity: 0 !important; }
+    .portrait[data-moodboard].is-breathing .portrait__img-wrap::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: radial-gradient(circle at 50% 50%, rgba(212, 175, 55, 0.22), transparent 70%);
+      z-index: 1;
+      pointer-events: none;
+    }
+
     /* ----------------------------------------------------------
        :: Responsivo — Tablet (≤ 1024px)
        ---------------------------------------------------------- */
@@ -1880,6 +2056,8 @@
       .hero__subtitle  { grid-column: 6 / span 7; }
       .hero__cta-col   { grid-column: 1 / -1; flex-direction: row; align-items: center; justify-content: space-between; padding-top: 1rem; border-top: 1px solid rgba(43, 36, 30, 0.08); }
       .hero__title { font-size: clamp(2.8rem, min(9vw, 13vh), 6rem); }
+      .moodboard--hero { width: clamp(180px, 26vw, 260px); right: calc(var(--gutter) + var(--safe-right)); top: clamp(5rem, 12vw, 7rem); transform: none; }
+      .moodboard--protocols { width: clamp(180px, 24vw, 260px); }
     }
 
     /* ----------------------------------------------------------
@@ -1981,6 +2159,15 @@
 
       /* Trade-off: parallax desligado no toque (faz-se via JS), aqui só o fallback */
       .hero__title, .hero__eyebrow { transform: none !important; }
+
+      /* Moodboard: em mobile some no Hero (espaço já justo) e empilha em Protocolos */
+      .moodboard--hero { display: none; }
+      .moodboard--protocols {
+        width: 100%;
+        max-width: 320px;
+        justify-self: start;
+        margin-top: 1.5rem;
+      }
     }
 
     /* ----------------------------------------------------------
@@ -2130,6 +2317,26 @@
         </div>
       </div>
 
+      <!-- Moodboard cinético — diálogo fotografia × névoa -->
+      <aside class="moodboard moodboard--hero" data-moodboard data-moodboard-interval="6000" aria-hidden="true">
+        <div class="moodboard__frame">
+          <img class="moodboard__img is-active" src="assets/lais-nayelli-portrait-01.jpg" alt="" loading="lazy" decoding="async" />
+          <img class="moodboard__img" src="assets/lais-nayelli-portrait-02.jpg" alt="" loading="lazy" decoding="async" />
+          <img class="moodboard__img" src="assets/resultado-02-depois.png" alt="" loading="lazy" decoding="async" />
+          <span class="moodboard__veil"></span>
+          <span class="moodboard__glow"></span>
+          <span class="moodboard__corner moodboard__corner--tl"></span>
+          <span class="moodboard__corner moodboard__corner--tr"></span>
+          <span class="moodboard__corner moodboard__corner--bl"></span>
+          <span class="moodboard__corner moodboard__corner--br"></span>
+          <span class="moodboard__thread"></span>
+        </div>
+        <div class="moodboard__meta">
+          <span class="moodboard__counter"><strong data-moodboard-idx>01</strong>/ <span data-moodboard-total>03</span></span>
+          <span>Atelier · Detalhe</span>
+        </div>
+      </aside>
+
     </section>
 
     <!-- Trilhas fixas — index + scroll cue -->
@@ -2184,14 +2391,21 @@
         </div>
 
         <div class="philosophy__col philosophy__col--media">
-          <figure class="portrait">
+          <figure class="portrait" data-moodboard data-moodboard-interval="6500">
             <div class="portrait__frame">
               <div class="portrait__img-wrap">
-                <img
+                <img class="is-active"
                   src="assets/lais-nayelli-portrait-01.jpg"
                   alt="Laís Nayélli em seu atelier de estética avançada"
                   loading="lazy"
                   decoding="async"
+                />
+                <img
+                  src="assets/lais-nayelli-portrait-02.jpg"
+                  alt=""
+                  loading="lazy"
+                  decoding="async"
+                  aria-hidden="true"
                 />
               </div>
               <span class="portrait__corner portrait__corner--tl" aria-hidden="true"></span>
@@ -2250,9 +2464,29 @@
             <span class="line"><span>desenhados em </span><em>camadas</em><span>.</span></span>
           </h2>
         </div>
-        <p class="protocols__intro">
-          Cada técnica nasce do <em>diagnóstico clínico</em>.<span class="d-md"> Selecione um ponto de partida — o restante eu desenho com você.</span>
-        </p>
+        <div class="protocols__head-right">
+          <p class="protocols__intro">
+            Cada técnica nasce do <em>diagnóstico clínico</em>.<span class="d-md"> Selecione um ponto de partida — o restante eu desenho com você.</span>
+          </p>
+          <aside class="moodboard moodboard--protocols" data-moodboard data-moodboard-interval="7000" aria-hidden="true">
+            <div class="moodboard__frame">
+              <img class="moodboard__img is-active" src="assets/resultado-01-depois.png" alt="" loading="lazy" decoding="async" />
+              <img class="moodboard__img" src="assets/resultado-02-depois.png" alt="" loading="lazy" decoding="async" />
+              <img class="moodboard__img" src="assets/lais-nayelli-portrait-02.jpg" alt="" loading="lazy" decoding="async" />
+              <span class="moodboard__veil"></span>
+              <span class="moodboard__glow"></span>
+              <span class="moodboard__corner moodboard__corner--tl"></span>
+              <span class="moodboard__corner moodboard__corner--tr"></span>
+              <span class="moodboard__corner moodboard__corner--bl"></span>
+              <span class="moodboard__corner moodboard__corner--br"></span>
+              <span class="moodboard__thread"></span>
+            </div>
+            <div class="moodboard__meta">
+              <span class="moodboard__counter"><strong data-moodboard-idx>01</strong>/ <span data-moodboard-total>03</span></span>
+              <span>Pele · Resultado</span>
+            </div>
+          </aside>
+        </div>
       </header>
 
       <div class="protocols__grid" role="list">
@@ -3245,6 +3479,106 @@
         });
       });
     }
+
+    // ============================================================
+    // 10 — Moodboard cinético: fotos que se trocam dialogando com a névoa
+    // ============================================================
+    class Moodboard {
+      constructor(el) {
+        this.el = el;
+        this.imgs = [...el.querySelectorAll('.moodboard__img, .portrait__img-wrap img')];
+        if (this.imgs.length < 2) return;
+
+        this.interval = parseInt(el.dataset.moodboardInterval, 10) || 5800;
+        this.breath   = 1400;
+        this.current  = Math.max(0, this.imgs.findIndex((i) => i.classList.contains('is-active')));
+        this.timer    = null;
+        this.visible  = false;
+        this.hovered  = false;
+
+        const idxEl   = el.querySelector('[data-moodboard-idx]');
+        const totalEl = el.querySelector('[data-moodboard-total]');
+        this.idxEl    = idxEl;
+        if (totalEl) totalEl.textContent = String(this.imgs.length).padStart(2, '0');
+        if (idxEl)   idxEl.textContent   = String(this.current + 1).padStart(2, '0');
+
+        this.io = new IntersectionObserver(
+          ([entry]) => {
+            this.visible = entry.isIntersecting;
+            this.visible ? this.start() : this.stop();
+          },
+          { threshold: 0.18 }
+        );
+        this.io.observe(el);
+
+        document.addEventListener('visibilitychange', () => {
+          if (document.hidden) this.stop();
+          else if (this.visible) this.start();
+        });
+
+        // Hover: concentra a seda dourada por trás
+        if (!isTouch) {
+          el.addEventListener('pointerenter', () => {
+            this.hovered = true;
+            const r = el.getBoundingClientRect();
+            window.__silk?.setHover(r.left + r.width / 2, r.top + r.height / 2, 0.7);
+          });
+          el.addEventListener('pointerleave', () => {
+            this.hovered = false;
+            window.__silk?.setHover(0, 0, 0);
+          });
+        }
+      }
+
+      start() {
+        if (this.timer || this.imgs.length < 2) return;
+        this.el.classList.add('is-cycling');
+        this.timer = setInterval(() => this.next(), this.interval);
+      }
+
+      stop() {
+        clearInterval(this.timer);
+        this.timer = null;
+        this.el.classList.remove('is-cycling');
+      }
+
+      next() {
+        if (this.hovered) return; // não troca durante hover — deixa o usuário contemplar
+        const cur = this.imgs[this.current];
+        const nextIdx = (this.current + 1) % this.imgs.length;
+        const nxt = this.imgs[nextIdx];
+
+        // Respiração: névoa dourada toma conta entre as fotos
+        this.el.classList.add('is-breathing');
+        cur.classList.remove('is-active');
+
+        // Pulso sutil no shader durante a troca
+        if (!isTouch) {
+          const r = this.el.getBoundingClientRect();
+          window.__silk?.setHover(r.left + r.width / 2, r.top + r.height / 2, 0.55);
+          setTimeout(() => {
+            if (!this.hovered) window.__silk?.setHover(0, 0, 0);
+          }, this.breath + 200);
+        }
+
+        setTimeout(() => {
+          this.el.classList.remove('is-breathing');
+          nxt.classList.add('is-active');
+          this.current = nextIdx;
+          if (this.idxEl) this.idxEl.textContent = String(this.current + 1).padStart(2, '0');
+        }, this.breath);
+      }
+    }
+
+    document.querySelectorAll('[data-moodboard]').forEach((el) => new Moodboard(el));
+
+    // 10.1 — Hero moodboard: entra com fade após a curtain dissolver
+    gsap.to('.moodboard--hero', {
+      opacity: 1,
+      duration: 1.6,
+      ease: 'expo.out',
+      delay: 1.8
+    });
   </script>
 
 </body>
